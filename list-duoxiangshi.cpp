@@ -1,0 +1,123 @@
+#include <iostream>
+using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+
+#define MaxSize 50
+typedef char ElemType;
+
+typedef struct Seqlist
+ {
+
+     ElemType *elem[MaxSize];
+     int length;
+ }*JSeqlist;
+
+ JSeqlist Init_SeqList()
+ {
+
+     JSeqlist L;
+     L=(JSeqlist)malloc(sizeof(struct Seqlist));
+     if(L!=NULL) L->length=0;
+     else printf("超出范围");
+     return L;
+ }
+
+
+ ElemType *Locate_SeqList(JSeqlist L,int p)
+ {
+
+  if(p>=0&&p<L->length)
+  {
+      return (L->elem[p]);
+  }
+
+  else
+      {
+        printf("顺序表中不存在相关元素");
+        return NULL;
+      }
+ }
+
+
+ int Insert_SeqList(JSeqlist L,int i,ElemType *x)
+ {
+
+     int j;
+     if(L->length==MaxSize)
+     {
+         printf("顺序表已满，无法进行插入操作\n");
+         return 0;
+     }
+     if(i<0||i>L->length)
+     {
+         printf("插入位置不正确");
+         return 0;
+     }
+     if(i==0)
+     {
+         L->elem[i]=x;
+         L->length=L->length+1;
+         return 1;
+     }
+     for(j=L->length;j>=i;j--)
+     L->elem[j]=x;
+     L->length++;
+     return 1;
+}
+
+int Delete_SeqList(JSeqlist L,int i)
+{
+
+    int j;
+     if((i<0)||(i>L->length-1))
+     {
+         printf("删除位置不对");
+         return 0;
+     }
+     for(j=i;j<L->length-1;j++)
+        L->elem[j]=L->elem[j+1];
+        L->length--;
+        return 1;
+}
+
+void Josephus(JSeqlist L,int start,int m)
+{
+
+    int s,i;
+    ElemType *w;
+    s=start-1;
+    for(i=L->length;i>0;i--)
+    {
+        s=(s+m-1)%i;
+        w=Locate_SeqList(L,s);
+        printf("出列人员为：%s\n",w);
+        Delete_SeqList(L,s);
+    }
+}
+
+int main(void)
+{
+    JSeqlist josephus;
+    int n,m,i,k,s;
+    josephus=Init_SeqList();
+    printf("josephus问题顺序表求解\n\n");
+    printf("请输入本josephus问题中的总人数 n=");scanf("%d",&n);
+    printf("请输入本josephus问题中的开始人员位置 s=");scanf("%d",&s);
+    printf("请输入本josephus问题中的计数值 m=");scanf("%d",&m);
+    printf("请输入本josephus问题中的人员名称或编号： \n");
+    for(i=0;i<n;i++)
+    {
+        printf("第%d位置人员名称为：",i+1);
+        josephus->elem[i]=(ElemType *)calloc(10,sizeof(char));
+         scanf("%s",josephus->elem[i]);
+         k=Insert_SeqList(josephus,i,josephus->elem[i]);
+         if(k==0)
+            exit(1);
+    }
+    Josephus(josephus,s,m);
+    free(josephus);
+    getchar();
+    return 0;
+}
