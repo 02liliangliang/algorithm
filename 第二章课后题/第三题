@@ -1,0 +1,20 @@
+void rev_seq(PSeqList palist){
+
+       DataType  x;
+       
+       int count i;
+      if (palist->n==0||palist->n==1) return;
+
+      count = palist ->n/2;
+
+     for (i=0; i<count; i++){
+
+           x=palist->element[i];
+
+          palist->element[i]=palist->element[palist->n-1-i];
+
+         palist->element[palist->n-1-i]=x;
+
+   }
+
+}
