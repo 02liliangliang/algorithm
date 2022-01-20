@@ -1,0 +1,44 @@
+void delx_seq(PSeqList p, DataType x){
+
+     int i=0,j=p->n-1,count=0;
+     
+     while(i<j){
+     
+           if(p->element[j]==x{
+           
+           while(p->element[j]==x)&&(i!=j){
+           
+           j--;
+           
+           count++;
+           
+        }
+        
+        if(i==j){
+        
+        p->n=p->n-count-1;
+        
+        return;
+        
+     }
+     
+     else{
+     
+         p->element[i]=p->element[j];
+         
+         count++;
+         
+         j--;
+         
+    }
+    
+ }
+ 
+ j++;
+ 
+
+ p->n=p->n-count;
+ 
+ if(p->element[i]==x)p->n--;
+ 
+ }
