@@ -1,0 +1,21 @@
+int insertPost_seq(palist,p,x){
+
+if(p>=palist.length) return 0;
+
+else{
+
+int i;
+
+for(i=p;i>=0;i--){
+
+if(palist[i]>x) palist[i+1]=palist[i];
+
+else break;
+
+}
+
+palist[i]=x;
+
+return 1;
+
+}
