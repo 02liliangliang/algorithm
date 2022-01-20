@@ -1,0 +1,21 @@
+int  deleteV_seq(PseqListpalist,p,DataType x){
+
+
+int p,q;
+
+for(p=0;p<n;p++)
+
+   if(x==palist->element[p]{
+
+      for(p=q;q<palist->n-1;q++)
+
+           palist->element[q]=palist->element[q+1]
+     
+     palist->n=palist->n-1;
+
+     return 1;
+
+  }
+
+return 0;
+}
