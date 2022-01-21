@@ -1,0 +1,36 @@
+int deletei_link(LinkList palist, int num)
+
+{
+	if (palist == NULL || num < 0)  return 0; 
+	PNode p, pre = NULL;     
+	
+	if (num == 0)       
+	{
+        p = palist;
+		palist = p->link;
+		free(p);
+		return 1;
+	}    
+	p = palist;
+
+	int count = 1;
+  
+	while (count !=num && p->link != NULL)
+  
+	{
+  
+		pre = p;
+    
+		p = p->link;
+    
+		count++;
+	}
+	if (pre == NULL)  return 0;  
+  
+	pre->link = p->link;
+  
+	free(p);
+  
+	return 1;
+  
+}
