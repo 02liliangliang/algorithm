@@ -1,0 +1,40 @@
+LinkList combine ( LinkList x , LinkList y ){
+
+       LinkList list =( LinkList ) malloc ( sizeof ( struct Node ));
+       
+       PNode p = llist , px = x -> link , py = y -> link ;
+       
+       while ( px != NULL Il py != NULL ){
+       
+                   if ( px != NULL ){
+                   
+                   
+                        p -> link =( LinkList ) malloc ( sizeof ( struct Node ); 
+                        
+                        p = p -> link ;
+                     
+                        p -> info = px -> info ; 
+                        
+                        px = px -> link ;
+
+                 }
+                 
+       if ( py != NULL ){
+       
+            p -> link =( LinkList ) maloc ( sizeof ( struct Node ));
+            
+            p = p -> link ;
+            
+            p -> info = py -> info ;   
+            
+            py = py -> link ;
+            
+    
+       }
+
+
+   }
+   P->link=NULL;
+   return list;
+
+}
