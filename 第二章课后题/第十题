@@ -1,0 +1,21 @@
+int  SearchPN_seq(PSeqList palist, int i, int * pprev, int* pnext){
+
+      if(i<0 || i>=palist->n){
+      
+         *pprev=-1;
+         
+         *pnext=-1;
+         
+         return FALSE;
+         
+       
+         }
+         
+         *pprev=i-1;
+         
+         *pnext=i+1;
+         if(i=palist->n-1)*pnext=-1;
+         
+         return TRUE;
+         
+      }
