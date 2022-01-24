@@ -1,0 +1,16 @@
+void deleteAheadElement(PNode s){
+
+        PNode p, q;
+        
+        p=s;
+        
+        while (p->link->link !=s)p=p->link;
+        
+       q=p->link;
+       
+       p->link=s;
+       
+      free(q);
+      
+ }
+ 
