@@ -1,0 +1,33 @@
+int  del_link_nohead(LinkList* plist, int i,  int k){
+      int j;
+     PNode p, q;
+     if((*plist)==NULL || i<0|| k<=0) return FALSE;
+     if(i==0){
+         for(j=0;j<k&&(*plist)!=NULL;j++){
+              q=(*plist)
+              (*plist)=(*plist)->link;
+              free(q);
+
+        }
+        return TRUE;
+ 
+   }
+   p=(*plist);
+   j=0;
+   while(p->link !=NULL && j<i-1){
+            p=p->link;
+            j++;
+         
+
+   }
+   if(p->link == NULL) return FALSE;
+   for(j=0;j<k && p->link !=NULL; j++){
+        q=p->link;
+        p->link=q->link;
+        free(q);
+
+   }
+
+   return TRUE;
+
+}
