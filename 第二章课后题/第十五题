@@ -1,0 +1,45 @@
+
+ LinkList combine _ clink ( LinkList list1 , LinkList list2){
+ 
+       LinkList list3=( LinkList ) malloc ( sizeof ( struct Node ))；
+       
+       PNode p1=list1-> link ,p2= list 2-> link ,p3=list3;
+       
+       if ( p1 == list1 && p2==list2){
+
+
+              list3-> link =list3;
+              
+              return list3; 
+      }
+      while ( p1 = list1|| p2！=list2){
+      
+                  p3-> link =( PNode ) maloc ( sizeof ( struct Node ));
+                  
+                  p3=p3-> link ;
+                  
+                  if (p2==list2 ||( p1！= list1&& p1 -> info <=p2-> info )){
+                  
+
+                  p3-> info =p1-> info ;
+                  
+                  p1= p1 -> link :
+                  
+                  }
+
+                  else{
+   
+                        p3->info=p2->info;
+                        
+                        p2=p2->link;
+                  }
+   
+
+                 }
+
+                 p3->link=list3;
+                 
+                 return list3;
+}
+
+
