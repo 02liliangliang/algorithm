@@ -1,0 +1,13 @@
+int pMatch ( PSeqStringt , PSeqString p ; int * next)
+      { int i , j ;
+      i =0; j =0;
+      while ( i < p -> n && j < t -> n )  
+                 if ( i ==-1 || p-> c [ i ]== t -> c [ j ])
+                      { i ＋+； j ++; }
+                  else 
+                      i = next [ i ];
+      if ( i >= p -> n )
+             return ( j - p -> n +1);
+     else 
+             return 0;
+}
