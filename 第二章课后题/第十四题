@@ -4,7 +4,7 @@ LinkList combine ( LinkList x , LinkList y ){
        
        PNode p = llist , px = x -> link , py = y -> link ;
        
-       while ( px != NULL Il py != NULL ){
+       while ( px != NULL || py != NULL ){
        
                    if ( px != NULL ){
                    
