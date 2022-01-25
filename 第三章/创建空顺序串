@@ -1,0 +1,14 @@
+
+ PSeqString createNullStr _ seq ( int m ) {
+    PSeqString pstr =( PSeqString ) malloc ( sizeof ( struct SeqString )); 
+    if ( pstr != NULL ){
+                 pstr -> C =( char *) malloc ( sizeof ( char )* m ); 
+                 if ( pstr -> c ) {
+                                  pstr -> n =0; pstr -> MAXNUM = m ; 
+                                  return pstr ;
+                                  }
+                else free ( pstr );
+               }
+ printf (" Out of space !! \n ＂); 
+ return NULL ;
+}
