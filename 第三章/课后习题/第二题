@@ -1,0 +1,68 @@
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+void move(string * S,int location);
+
+void compare(string * S,string t)
+{
+    int length_S=S->length();
+    int length_t=t.length();
+    int s_index=0;
+    while(s_index <= length_S)
+    {
+
+        if((*S)[s_index] == t[0])
+        {
+            int index_S = s_index; 
+            bool flag = true;
+            for(int i=1;i<length_t;i++)
+            {
+                index_S = index_S + 1; 
+                if((*S)[index_S] != t[i])
+                {
+                    flag = false; 
+                    break;
+                }
+            }
+            if(flag)
+            {
+                int index = s_index;    
+                for(int n=0;n<length_t;n++)
+                {
+                    
+                    move(S,index);
+                }
+                s_index--;
+            }
+        }
+        s_index++; 
+    }
+
+
+}
+
+
+void move(string * S,int location)
+{
+    int length_S=S->length();
+    for(int i=location;i<length_S;i++)
+    {
+        (*S)[i]=(*S)[i+1];
+    }
+}
+
+void print(string S)
+{
+    cout<<S<<endl;
+}
+
+int main()
+{
+    string S="ABCDEF";
+    string t="ABC";
+    compare(&S,t);
+    print(S);
+    return 0;
+}
