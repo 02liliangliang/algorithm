@@ -1,0 +1,57 @@
+typedef struct LNode{char data;struct LNode *next;}*Linklist;
+
+char findfirst(Linklist *x,Linklist *y)
+{
+	Linklist *p;
+	char c;
+	p=x;
+	if(x==NULL)
+	{
+		printf("x为空\n");
+	}else{
+		while(found(p->data,y))
+		{
+			p=p->next;
+		}
+		c=p->data;
+	}
+	return c;
+}
+
+int found(char ch,Linklist *head)
+{
+	while(head!=NULL && head->data!=ch)
+	{
+		head=head->next;
+	}
+	if(head==NULL)
+	{
+		return 0;
+	}else{
+		return 1;
+	}
+}
+
+
+void move(string * S,int location)
+{
+    int length_S=S->length();
+    for(int i=location;i<length_S;i++)
+    {
+        (*S)[i]=(*S)[i+1];
+    }
+}
+
+void print(string S)
+{
+    cout<<S<<endl;
+}
+
+int main()
+{
+    string S="ABCDEF";
+    string t="ABC";
+    compare(&S,t);
+    print(S);
+    return 0;
+}
