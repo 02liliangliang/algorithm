@@ -1,0 +1,9 @@
+makeNext ( PSeqStringp , int * next ) 
+{  int  i =0, k =-1;
+   next [ 0 ]=-1;
+   while ( i < p -> n -1){
+            while ( k >=0  & &   p -> c [ i ]!= p -> c [ k ]) k = next [ k ];
+            i ＋+； k ++;
+            next [ i ]= k ; 
+   }
+}
