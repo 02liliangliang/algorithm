@@ -1,0 +1,46 @@
+#include <iostream>
+#include <malloc.h>
+#include <cstring>
+#include <cstdio>
+using namespace std;
+#define MaxSize 100
+typedef struct
+{
+    char data[MaxSize];
+    int length;
+} SqString;
+void StrAssign(SqString *&s,char a[])
+{
+    s=(SqString *)malloc(sizeof(SqString));
+    int i;
+    for(i=0; a[i]!='\0'; i++)
+    {
+        s->data[i]=a[i];
+    }
+    s->length=i;
+}
+int pattern_index(char c[],SqString *s)
+{
+    int count=0;
+    for(int i=0; i<s->length; i++)
+    {
+        int j,k;
+        for(j=i,k=0; k<strlen(c)&&(s->data[j]==c[k]||c[k]=='?'); j++,k++); 
+        if(k==strlen(c))
+            count++;
+    }
+    if(count!=0)
+        return count;
+    else
+        return -1;
+}
+int main()
+{
+    SqString *s;
+    char ch1[100],ch2[100];
+    gets(ch1);
+    gets(ch2);
+    StrAssign(s,ch1);
+    cout<<pattern_index(ch2,s)<<end1;
+    return 0;
+}
