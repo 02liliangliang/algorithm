@@ -1,0 +1,162 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include <string.h>
+
+int replaceSubStr(/* in */char* src, /* out */char** dst,
+
+	/* in */char* sub, /* in */char* newSub)
+
+{
+
+	if (src == NULL || dst == NULL || sub == NULL || newSub == NULL)
+
+	{
+
+		return -1;
+
+	}
+
+	char tmp[520] = { 0 };
+
+	char* start = src;
+
+	char* p = NULL;
+
+	int len = 0;
+
+ 
+
+	do
+
+	{
+
+		//src="abcd11111abcd2222abcdqqqqq"
+
+		p = strstr(start, sub);
+
+		if (p != NULL)
+
+		{
+
+			len = p - start;
+
+			if (len > 0)
+
+			{
+
+				strncat(tmp, start, len);
+
+			}
+
+			strncat(tmp, newSub, strlen(newSub));
+
+ 
+
+
+			start = p + strlen(sub);
+
+		}
+
+		else
+
+		{
+
+			strcat(tmp, start);
+
+			break;
+
+		}
+
+	} while (*start != 0);
+
+ 
+
+	char* buf = (char*)malloc(strlen(tmp) + 1);
+
+	strcpy(buf, tmp);
+
+	*dst = buf;
+
+ 
+
+	return 0;
+
+}
+
+ 
+
+void freeBuf(char** buf)
+
+{
+
+	char* tmp = *buf;
+
+	if (tmp != NULL)
+
+	{
+
+		free(tmp);
+
+	}
+
+	*buf = NULL;
+
+}
+
+ 
+
+int main()
+
+{
+
+	char* p = "abcd11111abcd2222abcdqqqqq";
+
+	char* buf = NULL;
+
+	int ret = 0;
+
+ 
+
+	ret = replaceSubStr(p, &buf, "abcd", "dcba");
+
+	if (ret != 0) {
+
+		printf("replaceSubStr error:%d\n", ret);
+
+		return ret;
+
+	}
+
+	printf("p:  %s\n", p);
+
+	printf("dst:%s\n", buf);
+
+ 
+
+	freeBuf(&buf);
+
+ 
+
+	if (buf != NULL)
+
+	{
+
+		free(buf);
+
+		buf = NULL;
+
+	}
+
+ 
+
+	printf("\n");
+
+	system("pause");
+
+	return 0;
+
+}
