@@ -1,0 +1,34 @@
+/*   进栈    */
+void push _ link ( PLinkStack plstack , DataType x ) 
+{     PNode p ;
+      p =( PNode ) malloc ( sizeof ( struct Node )); 
+      if ( p == NULL )
+           printf (＂ Out of space !\ n ＂);
+     elsel 
+               { p -> info =x ;
+                 p -> link = plstack -> top ;
+                 plstack -> top = p ;
+                }
+
+}
+
+
+/*  出栈  */
+void pop _ link ( PLinkStack plStack ) 
+{      PNode p ;
+       if (isEmptyStack _link( plStack ))
+             printf (＂ Empty stack pop .\ n ＂);
+       elsel 
+            {  p = plstack -> top ;
+               plstack -> top = plstack -> top -> link ; 
+              free ( p );
+              }
+}
+
+/*   取栈 项元素  */
+DataType top _ link ( PLinkStack plstack )
+{   if ( pastack -> top == NULL )
+         printf (＂ Stack is empty !\ n ＂); 
+    else 
+         return ( plstack -> top -> info );
+}
