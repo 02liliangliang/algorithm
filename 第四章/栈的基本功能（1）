@@ -1,0 +1,19 @@
+
+ PLinkStack createEmptyStack _link( void )
+{
+    PLinkStack plstack ;
+    plstack =( PLinkStack ) malloc ( sizeof ( structLinkStack )); 
+    if ( plstack != NULL )
+          plstack -> top = NULL ;
+
+    else 
+          printf (" Out of space ! \n ");
+
+    return plstack ;
+}
+
+/*判断是否为空栈*/
+int isEmptyStack _ link ( PLinkStack plstack )
+{
+ return ( plstack -> top == NULL );
+}
