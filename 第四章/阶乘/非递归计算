@@ -1,0 +1,16 @@
+int nfact ( int n ) {
+    int res ;
+    PSeqStack st ;
+    st = CreateEmptyStack _ seq ( n ); 
+    while ( n >0)
+         {  push _ seq ( st , n ); 
+            n = n -1;
+          }
+    res =1;
+    while (! isEmptyStack _ seg ( st )){
+           res = res * top _ seq ( st ); 
+           pop _ seq ( st );
+          }
+    free ( st );
+    return res ;
+}
