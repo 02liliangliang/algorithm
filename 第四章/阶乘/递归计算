@@ -1,0 +1,6 @@
+int fact ( int n )
+ {   int res = n ;
+     if ( n >1)
+          res = res * fact ( n -1); 
+     return res ;
+}
