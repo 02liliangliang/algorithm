@@ -1,0 +1,48 @@
+void mazePath ( int * maze [], int * direction [], int x1, int y1, int x2, int y2， int M , int N )
+
+{   int i , j , k ; 
+int g , h ;
+PSeqStack st ; 
+DataType element ;
+st = CreateEmptyStack _ seq ( M * N ); 
+maze [x1][y1]=2;
+ element . X = Xl ;
+ element . y = yl ;
+ element . d =-1;
+ push _ seq ( st , element );
+ while (! isEmptyStack _ seg ( st )){
+ element = top _ seq ( st ); 
+ pop _ seg ( st );
+ i = element . X ;
+ j = element . Y ;
+ k = element . d +1;
+ while ( k <=3){
+            g = i + direction [ k ][ o ];
+            h = j + direction [ k ][1];
+            if ( g ==x2 &&  h ==y2 && maze [ g ][ h ]==0) {
+                 printf (＂ The revers path is : \n ");
+                 while (! isEmptyStack _ seq ( st ))
+                {
+                   element = top _ seq ( st );
+                   pop _ seq ( st );
+                   printf (＂ the node is :% d  %d \n ＂, element .×, element . y );
+                {
+                return ;
+         }
+
+        if ( maze [ g ][ h ]==0){
+                       maze [ g ][ h ]=2;
+                       element . x = i ;
+                       element . y = j ;
+                       element . d = k ;
+                       push _ seq ( st , element );
+                       i = g ;
+                       j = h ;
+                      k =-1;
+                      }
+         k = k + l ;
+         }
+   }
+
+ printf (" The path has not been found . \n ");
+}
