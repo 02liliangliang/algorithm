@@ -1,0 +1,42 @@
+void farmerProblem(){
+
+    int i,movers,location,newlocation;
+
+    int route[16];
+
+    PSeqQueue moveTo;
+
+    moveTo=createEmptQueue_seq();
+
+    enQueue_seq(moveTo,0x00）；
+    
+    for(i=0;i<16;i++) route[i]=-1;
+    route[0]=0;
+    while(! isEmptyQueue_seq(moveTo) && (route[15]==-1)){
+    location=frontQueue_seq(moveTo);
+    deQueue_seq(moveTo);
+    for(movers=1;movers<=8;movers<<1)
+         if((0!=(location & 0x08 ))==(0!=(location & movers))){
+             newLocation=location^(0x08 | movers);
+             if(safe(newLocation) && (route[newLocation]==-1)){
+                    route[newLocation]=location;
+                    enQueue_seq(moveTo,newlocation;
+              }
+              
+              }
+              
+}
+if(route[15]!=-1{
+   printf(''The reverse path is : \n");
+   
+   for(location=15;location>=0;location=route[location]){
+      printf("The location is :\n"）；
+      
+      if（location==0) exit(0);
+      
+      }
+   }
+ 
+else printf("No solution. \n");
+
+}
