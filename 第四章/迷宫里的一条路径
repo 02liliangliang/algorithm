@@ -1,6 +1,6 @@
 void mazePath ( int * maze [], int * direction [], int x1, int y1, int x2, int y2， int M , int N )
 
-{   int i , j , k ; 
+{  int i , j , k ; 
 int g , h ;
 PSeqStack st ; 
 DataType element ;
@@ -25,7 +25,7 @@ maze [x1][y1]=2;
                 {
                    element = top _ seq ( st );
                    pop _ seq ( st );
-                   printf (＂ the node is :% d  %d \n ＂, element .×, element . y );
+                   printf (＂ the node is: % d  %d \n ＂, element .×, element .y );
                 {
                 return ;
          }
