@@ -1,0 +1,37 @@
+/*顺序队*/
+/*储存结构*/
+struct SeqQueue{
+         int MAXNUM ; 
+         int f , r ;
+         DataType * g ;
+        }；
+typedef struct SeqQueue * PSeqQueue ;
+
+/*入队*/
+
+ void enQueue _ seq ( PSeqQueue pagu , DataType x ){
+         if (( paqu ->r+1)% MAXNUM == paqu -> f )
+                printf (" Full queue . In "); 
+         else{
+               paqu ->q[ paqu -> r ]=×;
+               paqu -> r =( paqu -> r +1)% MAXNUM ;
+               }
+
+ /*出队*/
+
+ void deQueue _ seg ( PSeqQueue paqu ) 
+{
+         if ( paqu -> f == paqu -> r )
+                printf (＂ Empty Queue . \n ＂); 
+         else 
+                paqu -> f =( paqu -> f +1）% MAXNUM ;
+}
+
+/*提取头元素*/
+
+ DataType frontQueue _ seg ( PSeqQueue paqu ) 
+ {     if ( paqu -> f == paqu -> r )
+               printf (＂ Empty Queue .\ n ＂): 
+       else 
+              return ( paqu -> q[ paqu -> f ]);
+}
