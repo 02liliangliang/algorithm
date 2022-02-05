@@ -1,0 +1,28 @@
+/*个体状态*/
+ int farmer ( int location ){
+         return ( 0 !=( location & 0x08));
+         }
+ int wolf ( int location ){
+        return ( 0 !=( location & 0x04));
+        }
+ int cabbage ( int location ){
+         return (0！=( location & 0x02)); 
+         }
+ int goat ( int location ) {
+        return (0!=(location & 0x01));
+        }
+/*安全状态*/
+
+ int safe ( int location )
+{
+     if (( goat ( location )== cabbage (location))  & &  ( goat ( location ) ！ =
+              farmer ( location )))
+              return 0;
+     if (( goat (location)== wolf (location))  &&  ( goat ( location ) ！=
+              farmer ( location )))
+              return 0; 
+      return 1;  
+}
+
+ 
+
