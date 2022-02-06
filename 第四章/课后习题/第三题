@@ -1,0 +1,17 @@
+
+ PSegStack createEmptyStack _ seq ( int m）{
+     PSeqStack pastack =( PSeqStack）malloc ( sizeof ( struct SeqStack )):
+            
+        if ( pastack！ = NULL） {
+        pastack ->s=( DataType *) malloc ( sizeof ( DataTypeY * m ）；
+        if ( pastack -> s）{ 
+             pastack -> MAXNUM = m :
+             pastack ->t=-1; 
+             retun( pastack )；
+              }
+         else free pastack :
+         }
+            printf ("    n  ");
+             retum NULL 
+       }
+
