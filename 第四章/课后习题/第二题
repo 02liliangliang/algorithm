@@ -1,0 +1,23 @@
+#include<stdio.h>
+#define Num 2
+int main()
+{
+	int num;
+	int a[16];
+	int i=1,j;
+	scanf("%d",&num);
+	for(j=0;j<16;j++)
+	{
+		i=num%Num;
+		num=num/Num;
+		a[j]=i;
+	}
+	printf("该数二进制为：");
+	for(j=15;j>=0;j--)
+	{
+		printf（"%d",a[j]）;，
+		if(j%4==0)
+			printf(" ");
+	}
+	return 0;
+}
