@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <string.h>
+
+typedef struct Stack
+{
+    int data[10];
+    int top;
+}Stack;
+
+Stack S;
+Stack S1,S2;
+void InitStackS1(Stack &S1)
+{
+    S1.top = -1;
+}
+
+void InitStackS2(Stack &S2)
+{
+    S2.top = 10;
+}
+
+void PushS1(Stack &S1,int e)
+{
+    if(S2.top-S1.top>1)
+    {
+        S.data[++S1.top] = e;
+    }
+    else
+    {
+        printf("栈满");
+    }
+}
+
+void PushS2(Stack &S2,int e)
+{
+    if(S2.top-S1.top>1)
+    {
+        S.data[--S2.top] = e;
+    }
+    else
+    {
+        printf("栈满");
+    }
+}
+
+void PopS1(Stack &S1,int &e)
+{
+    e = S.data[S1.top--];
+}
+
+void PopS2(Stack &S2,int &e)
+{
+    e = S.data[S2.top++];
+}
+
+void PrintStackS1(Stack S1)
+{
+    while(S1.top>-1)
+    {
+        printf("%d ",S.data[S1.top--]);
+    }
+}
+
+void PrintStackS2(Stack S2)
+{
+    while(S2.top<10)
+    {
+        printf("%d ",S.data[S2.top++]);
+    }
+}
+
+int main() {
+    InitStackS1(S1);
+    InitStackS2(S2);
+    PushS1(S1,1);PushS1(S1,2);PushS1(S1,1);PushS1(S1,1);PushS1(S1,0);
+    PushS2(S2,1);PushS2(S2,3);PushS2(S2,1);PushS2(S2,8);PushS2(S2,1);
+    PrintStackS1(S1);
+    printf("\n");
+    PrintStackS2(S2);
+    return 0;
+}
