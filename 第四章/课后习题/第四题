@@ -1,0 +1,26 @@
+#include <stdlib.h>
+#include <iostream>
+using namespace std;
+
+enum { MAXNUM = 20 }; 
+typedef int DataType; 
+struct SeqStack {    
+    int t;      
+    DataType s[MAXNUM];
+};
+typedef  struct SeqStack SeqSack, *PSeqStack; 
+
+
+PSeqStack createEmptyStack_seq(void) {
+    PSeqStack pastack = (PSeqStack)malloc(sizeof(struct SeqStack));
+    if (pastack == NULL)
+        printf("Out of space!! \n");
+    else
+        pastack->t = -1;
+    return pastack;
+}
+
+int isEmptyStack_seq(PSeqStack pastack) {
+    return pastack->t == -1;
+}
+
