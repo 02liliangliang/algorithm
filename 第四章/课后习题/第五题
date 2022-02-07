@@ -1,0 +1,53 @@
+#include<stdio.h>
+#include<malloc.h>
+#include<string.h>
+
+
+typedef struct{
+	char data[100];
+	int top;
+	int bottom;
+}stack;
+
+stack *StackCreate(){
+	stack *p=(stack*)malloc(sizeof(stack));
+	if(p==NULL)
+	return 0;
+	p->bottom=p->top=0;
+	return p;
+}
+
+
+void StackInput(stack *p,char str){
+	p->data[p->top]=str;
+	p->top++;
+} 
+
+char StackOutput(stack *p,char str){
+	if(p->top!=p->bottom){
+		str=p->data[p->top-1];
+		p->top--;
+		return str;
+	}
+} 
+
+void StackPrint(stack *p){
+	while(p->top!=p->bottom){
+		printf("%c",p->data[p->top-1]);
+		p->top--;
+	}
+}
+
+
+int main(){
+	int i;
+	stack *p;
+	char a[10]="asdfgh";
+	p=StackCreate();	 
+	for(i=0;i<strlen(a);i++)
+	StackInput(p,a[i]);
+	printf("输出栈中所有字符：\n"); 
+	StackPrint(p);
+}
+
+
