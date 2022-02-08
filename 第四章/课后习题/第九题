@@ -1,0 +1,42 @@
+/*递归函数*/
+#include<stdio.h>
+int fbnq(int n)
+{
+	if (n <= 2)
+		return 1;
+	else
+		return fbnq(n - 1) + fbnq(n - 2);
+}
+int main()
+{ 
+	int n = 0;
+	scanf_s("%d", &n);
+	int ret = fbnq(n);
+	printf("%d\n", ret);
+	return 0;
+}
+
+/*非递归函数*/
+#include<stdio.h>
+int fbnq(int n)
+{
+	int a = 1;
+	int b = 1;
+	int c = a;
+	while (n > 2)
+	{
+		c = a + b; 
+		a = b; 
+		b = c; 
+		n--; 
+	}
+	return c;
+}
+int main()
+{ 
+	int n = 0;
+	scanf_s("%d", &n);
+	int ret = fbnq(n);
+	printf("第%d个斐波那契数为%d\n",n, ret);
+	return 0;
+}
