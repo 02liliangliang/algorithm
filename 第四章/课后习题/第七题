@@ -1,0 +1,82 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+ 
+typedef int elemType;
+
+typedef struct queuenode
+{
+	elemType data;
+	struct queuenode *next;
+}queuenode,*LinkQueue;
+ 
+typedef struct
+{
+	LinkQueue rear;  
+	int length;
+}sqqueue;
+ 
+void initQueue(sqqueue &Q)
+{
+	Q.rear=(LinkQueue)malloc(sizeof(Q));
+	Q.rear->next=Q.rear;
+}
+int emptyQueue(sqqueue &Q)
+{
+	if(Q.rear->next==Q.rear) 
+		return 1;
+	else
+		return 0;
+}
+
+int enqueue(sqqueue &Q,elemType e)
+{   
+	LinkQueue p;
+	p=(LinkQueue)malloc(sizeof(Q));  
+	if(!p)
+		return 0;
+	p->data=e;
+	p->next=Q.rear->next;
+	Q.rear->next=p;
+	Q.rear=p;  
+	return 1;
+}
+
+int delqueue(sqqueue &Q,elemType &e)
+{
+	LinkQueue p;
+	if(Q.rear->next==Q.rear)
+		return 0;  
+	p=Q.rear->next->next;  
+	e=p->data;  
+	Q.rear->next->next=p->next;  
+	free(p);  
+	return 1;
+}
+ 
+int main()
+{
+	sqqueue m;
+	elemType num;
+	initQueue(m);
+	if(emptyQueue(m))
+		printf("该队列目前为空!\n");
+	else
+		printf("该队列不为空!\n");
+	for(int i=1;i<=10;i++)
+		{
+			if(enqueue(m,i))
+			printf("元素%d成功入列!\n",i);
+		}
+	printf("\n\n");
+	for(int j=1;j<=10;j++)
+		{
+			if(delqueue(m,num))
+			printf("元素%d成功出列!\n",num);
+		}
+	if(emptyQueue(m))
+		printf("该队列目前为空!\n");
+	else
+		printf("该队列不为空!\n");
+	return 0;
+}
