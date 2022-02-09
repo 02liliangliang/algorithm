@@ -1,0 +1,125 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define OK 1 
+#define ERROR 0
+#define STACKINCREMENT 5
+#define STACK_INIT_SIZE 10
+typedef char SElemType;
+typedef int Status;
+typedef struct{
+	SElemType *base;
+	SElemType *top;
+	int stacksize;
+}SqStack;
+char prior[7][7]={{'>','>','<','<','<','>','>'},{'>','>','<','<','<','>','>'},{'>','>','>','>','<','>','>'},
+				  {'>','>','>','>','<','>','>'},{'<','<','<','<','<','=','!'},{'>','>','>','>','!','>','>'},
+				  {'<','<','<','<','<','!','='}};
+Status InitStack(SqStack *s){
+	s->base = (SElemType *)malloc(STACK_INIT_SIZE*sizeof(SElemType));
+	if(!s->base) return ERROR;
+	s->top = s->base;
+	s->stacksize = STACK_INIT_SIZE;
+	return OK;
+}
+Status Push(SqStack *s,SElemType e){
+	if(s->top-s->base>=s->stacksize){
+		s->base = (SElemType *)realloc(s->base,(STACKINCREMENT+s->stacksize)*sizeof(SElemType));
+		if(!s->base) exit(0);
+		s->top = s->base+s->stacksize;
+		s->stacksize += STACKINCREMENT;
+	}
+	*s->top++ = e;
+	return OK;
+}
+
+Status Pop(SqStack *s,SElemType *e){
+	if(s->base==s->top){
+		printf("空栈！\n");
+		return ERROR;
+	}
+	*e = *--s->top;
+	return OK;
+}
+SElemType GetTop(SqStack *s){
+	return *(s->top-1);
+} 
+
+int Index(char c){
+	switch(c){
+		case '+': return 0;
+		case '-': return 1;
+		case '*': return 2;
+		case '/': return 3;
+		case '(': return 4;
+		case ')': return 5;
+		case '#': return 6;
+		default:  return 7;
+	}
+}
+char Priority(char a,char b){
+	int x,y;
+	x = Index(a); y = Index(b);
+	if(x!=7&&y!=7)
+		return prior[x][y];
+	else
+		return '!';
+}
+int Reckon(int a,char theta,int b){
+	switch(theta){
+		case '+':return a+b;
+		case '-':return a-b;
+		case '*':return a*b;
+		case '/':return a/b;
+	}
+}
+Status isdigit(char ch){
+	if(ch>='0'&&ch<='9') return OK;
+	return ERROR;
+} 
+void GetExpressionValue(){
+	SqStack OPTR,OPND; 
+	SElemType result;
+	InitStack(&OPTR);
+	InitStack(&OPND);
+	Push(&OPTR,'#'); 
+	printf("请输入算术表达式:\n");
+	char c = getchar();
+	
+	while(c!='#'||GetTop(&OPTR)!='#'){
+		if(isdigit(c)){
+			int data[10];
+			int i,num;
+			i = num =0;
+			while(isdigit(c)){
+				data[i] = c-'0';
+				i++;
+				c = getchar();
+			}
+			for(int j=0;j<i;j++){
+				num = num*10+data[j];
+			}
+			Push(&OPND,num);
+		}else{
+			SElemType a,b,theta;
+			switch(Priority(GetTop(&OPTR),c)){
+				case '<':Push(&OPTR,c); 
+						 c = getchar();
+						 break;
+				case '>':Pop(&OPND,&b);
+						 Pop(&OPND,&a);
+						 Pop(&OPTR,&theta);
+						 Push(&OPND,Reckon(a,theta,b));
+						 break;
+				case '=':Pop(&OPTR,&theta);
+						 c = getchar();
+						 break;
+				default:break;
+			}
+		}
+	}
+	Pop(&OPND,&result);
+	printf("结果是：%d",result);
+}
+main(){
+	GetExpressionValue();
+}
