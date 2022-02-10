@@ -1,0 +1,6 @@
+ void postOrder ( BinTree t ){
+ if ( t == NULL ) return ;
+ postOrder ( leftChild ( t )); 
+ postOrder ( rightChild ( t )); 
+ visit ( root ( t ));
+}
