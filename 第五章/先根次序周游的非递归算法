@@ -1,0 +1,14 @@
+ void nPreOrder ( BinTree t ){
+ Stack s ;
+ BinTreeNode * C ;
+ if ( t == NULL ) return ;
+ s = createEmptyStack (); push ( s , t ); 
+ while (! is EmptyStack ( s )){
+       c = top ( s ); pop ( s ); 
+       if ( c != NULL ){
+                     visit ( root ( c ));
+                     push ( s , rightChild ( c ));
+                     push ( s , leftChild ( c ));
+                     }
+      }
+}
