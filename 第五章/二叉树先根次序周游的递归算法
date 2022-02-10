@@ -1,0 +1,6 @@
+ void preOrder ( BinTree t ){
+ if ( t == NULL ) return ; 
+ visit ( root ( t ));
+ preOrder ( leftChild ( t ));
+ preOrder ( rightChild ( t ));
+}
