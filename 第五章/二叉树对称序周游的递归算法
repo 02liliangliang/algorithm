@@ -1,0 +1,6 @@
+ void inOrder ( BinTree t ){
+ if ( t == NULL ) return ; 
+ inOrder ( leftChild ( t )); 
+ visit ( root ( t ));
+ inOrder ( rightChild( t ));
+}
