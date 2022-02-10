@@ -1,0 +1,22 @@
+void nPostOrderl ( BinTree t ){
+         StackS ;
+         Elem stnode ;
+         BinTreeNode * P = t ; 
+         if ( t == NULL ) return ;
+         s = createEmptyStack (); 
+        do{
+             while ( p != NULL ){
+                          stnode . t = P ; stnode . tag =1;
+                          push ( s , stnode ); p = leftChild ( p );
+                          }
+             while (! isEmptyStack ( s )){
+                           stnode = top ( s ); pop ( s ); 
+                           P = stnode . t ;
+                           if ( stnode . tag ==1)
+                           { stnode . tag =2; push ( s , stnode );
+                           p = rightChild ( p ); break ;
+                           }
+                           else visit ( root ( p ));
+            }
+ }  while ( ！is EmptyStack ( s ));
+}
