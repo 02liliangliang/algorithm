@@ -1,0 +1,16 @@
+/*返回下标为 p 的结点的父结点的下标*/
+ int parent _ seq ( PSeqBinTree t , int p ){
+      if ( p <0 II p>= t -> n ) return -1; 
+      return ( p -1)/2;
+}
+/*返回下标为 p 的结点的左子结点的下标*/
+ int leftChild _ seq ( PSeqBinTree t , int p ){
+      if ( p <0 || p>= t -> n ) return -1; 
+      return 2* p +1;
+}
+
+/*返回下标为 p 的结点的右子结点的下标*/
+ int rightChild _ seq ( PSeqBinTree t , int p ){
+      if ( p <0 || p>= t -> n ) return -1; 
+      return 2*( p +1);
+}
