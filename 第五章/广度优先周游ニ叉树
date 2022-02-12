@@ -1,0 +1,14 @@
+/*广度优先周游ニ叉树*/
+ void levelOrder ( BinTree t ){
+       BinTree c , cc ;
+       Queue q = createEmptyQueue (); 
+       if ( t == NULL ) return ; 
+       c = t ; enQueue ( q , c ); 
+       while (! is EmptyQueue ( q ))
+                  { c = frontQueue ( q ); deQueue ( q ); visit(root(c)); 
+
+                    cc = leftChild ( c ); if ( cc != NULL ) enQueue(q,cc) ;
+ 
+                    cc = rightChild ( c ); if ( cc != NULL ) enQueue(q,cc);
+                   }
+} 
