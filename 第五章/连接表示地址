@@ -1,0 +1,11 @@
+/*返回结点 p 的左子结点的地址*/
+ PBinTreeNode leftChild _ link ( PBinTreeNode p ){
+        if ( p == NULL ) return NULL ; 
+        return p ->l link;
+}
+
+/*返回结点 p 的右子结点的地址*/
+ PBinTreeNode rightChild _ link ( PBinTreeNode p ){
+       if ( p == NULL ) return NULL ; 
+       return p -> rlink ;
+}
