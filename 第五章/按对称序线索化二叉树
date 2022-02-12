@@ -1,0 +1,19 @@
+/*按对称序线索化二叉树*/
+ void thread ( ThrTree t ){
+       PSeqStack st = createEmptyStack ( M );
+   
+       ThrTree p , pr ;
+       if ( t == NULL ) return ;
+       p = t ; pr = NULL ;
+       do {
+                  while ( p != NULL ) { push _ seq ( st , p ); P = p ->llink; }
+
+                  p = top _ seq ( st ); pop _ seq ( st ); 
+                  if ( pr != NULL ){
+                          if ( pr -> rlink == NULL ){ pr -> rlink = p ; pr -> rtag =1;}
+
+                          if ( p ->llink== NULL ) {p ->llink= pr ; p -> ltag =1;}
+                }
+                          pr = p ; p = p -> rlink ; 
+       } while (! is EmptyStack _ seq ( st ) || p != NULL );
+}
