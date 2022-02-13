@@ -1,0 +1,8 @@
+/* 在优先队列中找出最小元素并删除*/
+ DataType deleteMin ( PriorityQueue pq1）
+ {
+      DataType result ;
+      result = min (pq1);
+      removeMin (pq1);
+      return result ;
+}
