@@ -1,0 +1,16 @@
+/*从优先队列中删除最小元素*/
+ void removeMin _ heap ( PPriorityQueue papq ) {
+          int s , i , child ; DataType temp ;
+          if ( is Empty _ heap ( papq )) { printf (＂ Empty !\ n ＂); return ;}
+          s =-- papq -> n ;  
+          temp = papq -> pq [ s ]; 
+          i =0; child =1;
+          while ( child < s ) {
+                if ( child < s -1 &&  papq -> pq [ child ]> papq -> pq [ child +1])
+                     child ++;
+                if ( temp > papq -> pq [ child ])
+                    { papq -> pq [ i ]= papq -> pq[child] ; i = child ; child =2* i +1;}
+                else break ; 
+         }
+         papq -> pq [ i ]= temp ; 
+}
