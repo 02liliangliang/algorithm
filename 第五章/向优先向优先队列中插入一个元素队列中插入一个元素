@@ -1,0 +1,8 @@
+/*向优先队列中插入一个元素*/
+ void add _ heap ( PPriorityQueue papq , DataType x ) {
+         int i ;
+         if ( papq -> n >= papq -> MAXNUM ) {printf (＂Full !\ n ＂); return ; }
+         for ( i = paqu -> n ; i >0 &&  papg -> pq [( i -1) / 2]>x ; i =( i -1)/2)
+                papq -> pq [ i ]= papq -> pq [( i -1) / 2];
+        papq -> pq [ i ]= X ; papq -> n ++;  
+}
