@@ -1,0 +1,11 @@
+/*广度优先周游树的算法*/
+void levelOrder ( Tree t ) {
+     Tree c ;
+     Queue g ;
+     q= createEmptyQueue (); c= t ; 
+     if ( c == NULL ) return ;
+     enQueue ( q , c ); 
+     while (! isEmptyQueue(q )) {
+              c= frontQueue ( q ); deQueue ( q ); visit ( root ( c )); c = leftChild ( c ); 
+              while ( c != NULL ){ enQueue ( q , c ); c= rightSibling ( c );}
+}
