@@ -1,0 +1,7 @@
+/*按先根次序周游数的递归算法*/
+void preOrder ( Tree t ){
+     Tree  c;
+     if ( t == NULL ) return ;
+     visit ( root ( t )); c = leftChild ( p );
+     while ( c != NULL ) { preOrder ( c ); c = right Sibling ( c ); }
+}
