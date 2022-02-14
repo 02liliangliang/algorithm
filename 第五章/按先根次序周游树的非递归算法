@@ -1,0 +1,11 @@
+/*按先根次序周游树的非递归算法*/
+ void nPreOrder ( Tree t ) {
+        Tree c = t ; 
+        Stack s = createEmptyStack (); 
+        do {
+                while ( c != NULL ) { visit ( root ( c )); push ( s , c );
+                                                c = leftChild ( c );}
+                while (( c == NULL ) && (! is EmptyStack ( s ))) {
+                             c= rightSibling ( top ( s )); pop ( s );}
+         } while ( c != NULL );
+}
