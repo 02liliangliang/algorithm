@@ -1,0 +1,8 @@
+/* 按后根次序周游树的递归算法*/
+ void postOrder ( Tree t ) {
+      Tree c ;
+      if ( t == NULL ) return ; 
+       c = leftChild ( t );
+       while ( c != NULL ){ postOrder ( c ); c = rightSibling ( c );}
+       visit ( root ( t ));
+}
