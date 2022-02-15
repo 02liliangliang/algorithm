@@ -1,0 +1,13 @@
+/*在树的子表表示中求右兄弟结点的位置*/
+int rightSibling _ chitree ( PChiTree t , int p ) {
+     int i ; struct EdgeNode * v ;
+     for ( i =0; i < t -> n ; i ++) {
+          v = t -> nodelist [ i ]. children ; 
+          while ( v != NULL )
+                    if ( v -> nodeposition == p )
+                        if ( v -> link == NULL ) return (-1);
+                        else return ( v -> link -> nodeposition ); 
+                    else v = v -> link ;
+    }
+    return (-1);
+}
