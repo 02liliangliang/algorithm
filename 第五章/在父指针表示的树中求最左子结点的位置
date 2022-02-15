@@ -1,0 +1,6 @@
+/*在父指针表示的树中求最左子结点的位置*/
+int leftChild _ partree ( PParTree t , int p ) {
+     int i；
+     if ( t -> nodelist [ p +1]. parent == p ) return ( p +1); 
+     else return (-1);
+}
