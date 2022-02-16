@@ -1,0 +1,24 @@
+void ThreadPreOrder(pThrTree t)                   
+    pThrTree p =t;
+    if(t == NULL)   return;
+    else    cout<<p->info;                         
+
+    while(p != NULL){
+        if(p->llink != NULL && p->ltag == 0){      
+            p=p->llink;
+            cout<<p->info;                
+        }
+        else if(p->rlink != NULL && p->rtag == 0){  
+            p=p->rlink;
+            cout<<p->info;                   
+        }
+        else if(p->rlink->rlink != NULL){       
+
+                p=p->rlink->rlink;              
+
+                cout<<p->info;                
+        }
+        else                                   
+            break;
+    }
+}
