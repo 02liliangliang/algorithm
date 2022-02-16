@@ -1,0 +1,49 @@
+#inlcude<stdio.h>
+#define ElemType int
+typedef struct BiTNode{
+    ElemType data;
+    struct BiTNode *lchild, *rchild;
+}*BiTree, BiTNode;
+ 
+int Width(BiTree T){
+    if(!T)     return 0;
+    int c1, c2 , max, i = 0;
+    InitQueue(Q1);
+    InitQueue(Q2);
+    BiTNode *p = T;
+    EnQueue(Q1,p);
+    if(i%2==0){
+        c1 = Length(Q1);
+        while(!isEmpty(Q1)){
+            DeQueue(Q1,p);
+            if(p->lchild){
+                EnQueue(Q2,p->lchild);
+            }
+            if(p->rchild){
+                EnQueue(Q2,p->rchild);
+            }
+        }
+        c2=Length(Q2); 
+        if(max<(c1>c2?c1:c2)){
+            max = c1>c2?c1:c2;
+        }
+        i++;
+    }else{
+        c1 = Length(Q2);
+        while(!isEmpty(Q2)){
+            DeQueue(Q2,p);
+            if(p->lchild){
+                EnQueue(Q1,p->lchild);
+            }
+            if(p->rchild){
+                EnQueue(Q1,p->rchild);
+            }
+        }
+        c2 = Length(Q1);
+        if(max<(c1>c2?c1:c2)){
+            max = c1>c2?c1:c2;
+        }
+        i++;
+    }
+    return max;
+}
