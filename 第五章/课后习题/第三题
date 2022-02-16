@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<stdlib.h>
+ 
+struct node{
+	char data;
+	int ltag,rtag;
+	struct node *lchild,*rchild;
+};
+ 
+struct node *node_arr[100]; 
+int node_arr_top=0;
+struct node* createTree() 
+{
+	char ch=getchar();
+	if(ch!='#'){
+		struct node* p=(struct node*)malloc(sizeof(struct node));
+		node_arr[++node_arr_top]=p; 
+		p->data = ch;
+		p->lchild = createTree();
+		p->rchild = createTree();
+        p->ltag = p->rtag = 0;
+		return p;
+	}
+	return NULL;
+}
+ 
+
+void convertToXiansuo(struct node *root, struct node **last)
+{
+    if(root)
+    {
+        convertToXiansuo(root->lchild,last);  
+        if(root->lchild==NULL){        
+            root->lchild=*last;
+            root->ltag=1;
+        }
+        if((*last)!=NULL && (*last)->rchild==NULL){ 
+            (*last)->rtag=1;
+            (*last)->rchild=root;
+        }
+        *last = root;
+        convertToXiansuo(root->rchild,last); 
+    }
+}
+ 
+void xianSuoHua(struct node *root)  
+{
+    struct node *last=NULL; 
+    convertToXiansuo(root,&last);
+    last->rtag=1; 
+}
+ 
+ 
+struct node* preOfBackOrder(struct node* p)  
+{
+    if(p==NULL)return NULL;           
+    if(p->rtag==0)return p->rchild;  
+    if(p->ltag==0)return p->lchild;  
+    while(p&&p->ltag==1)             
+        p=p->lchild;
+    if(p)return p->lchild;           
+    return NULL;                  
+}
+ 
+ 
+int main()
+{
+    int i;
+    printf("请输入先序序列以建树: "); 
+    struct node* root=createTree();
+    xianSuoHua(root);
+    for(i=1;i<=node_arr_top;i++)    
+    {
+        struct node* p=node_arr[i];
+        struct node* r=preOfBackOrder(p);
+        printf("后序序列中%c的前驱是%c\n",p->data,r?r->data:'-');
+    }
+}
