@@ -1,0 +1,93 @@
+#include "stdio.h"
+#include "string.h"
+#include "stdlib.h"
+#include "stack"
+using namespace std;
+ 
+const char str[] = "3*4+5-2/1";
+ 
+struct tree
+{
+	char c;
+	struct tree* left;
+	struct tree* right;
+};
+stack<struct tree*> subTreeStack;
+stack<char> operatorStack;
+ 
+ 
+struct tree*  BuildTree()
+{ 
+ 
+	struct tree* node;
+	for (unsigned int pos = 0; pos < strlen(str); pos++)
+	{
+		if (str[pos] - '0' >= 0 && str[pos] - '0' <= 9)   
+		{
+ 
+			node = (struct tree*) malloc(sizeof(struct tree));
+			node->c = str[pos];
+			node->left = NULL;
+			node->right = NULL;
+			
+		
+			
+			subTreeStack.push(node);
+		}
+		else if (str[pos] == '*' || str[pos] == '/' || str[pos] == '+' || str[pos] == '-')
+		{
+			if (!operatorStack.empty() && (str[pos] == '+' || str[pos] == '-'))  //若优先级比栈顶元素低
+			{
+				node = (struct tree*) malloc(sizeof(struct tree));
+				node->c = operatorStack.top();
+				node->right = subTreeStack.top();
+				subTreeStack.pop();
+				node->left = subTreeStack.top();
+				subTreeStack.pop();
+				
+				subTreeStack.push(node);
+			
+ 
+				operatorStack.pop();
+				operatorStack.push(str[pos]);
+			}
+			else
+				operatorStack.push(str[pos]);
+		}
+	
+	
+	}
+	
+	
+	while(!operatorStack.empty())
+	{
+	
+		node = (struct tree*) malloc(sizeof(struct tree));
+		node->c = operatorStack.top();
+		operatorStack.pop();
+		node->right = subTreeStack.top();
+		subTreeStack.pop();
+		node->left = subTreeStack.top();
+		subTreeStack.pop();
+		
+		subTreeStack.push(node);
+	
+	}
+	return subTreeStack.top();
+ 
+}
+void PrintTree(struct tree* node)
+{
+	if (node == NULL)
+		return;
+	PrintTree(node->left);
+	printf("%c", node->c);
+	PrintTree(node->right);
+}
+ 
+ 
+void main()
+{
+	struct tree* root = BuildTree();
+	PrintTree(root);
+}
