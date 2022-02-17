@@ -1,0 +1,169 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <queue>
+#include <math.h>
+#include <time.h>
+
+using namespace std;
+
+class Random{
+	public:
+		Random(bool pseudo=true);
+		double random_real();
+		int poisson(double mean);
+	private:
+		int reseed();
+		int seed,
+			multiplier,add_on;
+};
+
+int Random::reseed()
+{
+	seed=seed*multiplier + add_on;
+	return seed;
+}
+
+Random::Random(bool pseudo)
+{
+	if(pseudo)
+		seed=1;
+	else
+		seed=time(NULL)%INT_MAX;
+	multiplier=2743;
+	add_on=5923;
+}
+
+double Random::random_real()
+{
+	double max=INT_MAX + 1.0;
+	double temp=reseed();
+	if(temp<0)
+		temp=temp+max;
+	return temp/max;
+}
+
+int Random::poisson(double mean)
+{
+	double limit=exp(-mean);
+	double product=random_real();
+	int count=0;
+	while(product>limit){
+		count++;
+		product*=random_real();
+	}
+	return count;
+}
+	
+
+
+struct plane{
+    int name;
+    int in_queue_time;
+} plane;
+
+int main()
+{
+    int time=0,spare_time=0,
+         wait_time=0, come_wait_time=0 , go_wait_time=0;
+
+    int this_time_come=0, this_time_go=0,
+         total_come=0, total_go=0;
+
+    double come_rate=0,go_rate=0;
+
+    int total=0,len=0,
+         come_accepted=0, go_accepted=0;
+
+    int i=0, counts=0;
+
+    queue <struct plane> q1;       
+    queue <struct plane> q2;        
+    struct plane temp;
+    Random variable;
+
+    printf("请输入飞机场运行的时间。\n");
+    scanf("%d",&time);
+    printf("请输入降落和起飞队列最多容纳的飞机数。\n");
+    scanf("%d",&len);
+    printf("请输入平均每个单位时间请求降落的飞机数。\n");
+    scanf("%lf",&come_rate);
+    printf("请输入平均每个单位时间请求起飞的飞机数。\n");
+    scanf("%lf",&go_rate);
+    for(i=0;i<time;i++)
+    {
+            if(!q1.empty()){
+                temp=q1.front();
+                wait_time=i-temp.in_queue_time-1;
+                come_wait_time+=wait_time;
+                printf("\n\n##%d号时间##\n%d号飞机降落了，等了%d个单位时间。\n", i, temp.name , wait_time);
+                q1.pop();
+            }
+            else if(!q2.empty()){
+                temp=q2.front();
+                wait_time=i-temp.in_queue_time-1;
+                go_wait_time+=wait_time;
+                printf("\n\n##%d号时间##\n%d号飞机飞走了，等了%d个单位时间。\n", i, temp.name , wait_time);
+                q2.pop();
+            }
+            else {
+                printf("\n\n##%d号时间##\n没有飞机降落，也没有飞机起飞，此时跑道为空。\n",i);
+                spare_time++;
+            }
+            if((i+1)!=time)
+            {
+                this_time_come = variable.poisson(come_rate);
+                this_time_go = variable.poisson(go_rate);
+
+                total+=this_time_come+this_time_go; 
+                total_come += this_time_come;         
+                total_go += this_time_go;                  
+
+        /**处理这一时刻请求降落的飞机**/
+                while(counts < total - this_time_go)
+                {
+                    plane.name=counts;
+                    if(q1.size()<len){
+                        printf("%d号飞机请求降落，并进入降落队伍。\n", plane.name);
+                        plane.in_queue_time = i;
+                        q1.push(plane);
+                        come_accepted++;
+                    }
+                    else{
+                        printf("%d号飞机请求降落但被拒绝了。\n",plane.name);
+                    }
+                    counts++;
+                }
+        /**处理这一时刻请求起飞的飞机**/
+                while(counts < total)
+                {
+                    plane.name=counts;
+                    if(q2.size()<len){
+                        printf("%d号飞机请求起飞，并进入起飞队伍。\n", plane.name);
+                        plane.in_queue_time = i;
+                        q2.push(plane);
+                        go_accepted++;
+                    }
+                    else{
+                        printf("%d号飞机请求起飞但被拒绝了。\n",plane.name);
+                    }
+                    counts++;
+                }
+            }
+         else{
+            printf("历经%d个单位时间，机场停止接收请求。\n",time);
+            printf("\n\n一共收到了%d架飞机的请求。\n",total);
+            printf("一共有%d架请求降落。其中有%d架被接受了，%d架被拒绝了。\n", total_come , come_accepted , total_come - come_accepted );
+            printf("一共有%d架请求起飞。其中有%d架被接受了，%d架被拒绝了。\n\n", total_go, go_accepted , total_go - go_accepted );
+            printf("成功降落了%d架，还有%d架在排队等待降落。\n", come_accepted-q1.size(), q1.size());
+            printf("成功起飞了%d架，还有%d架在排队等待起飞\n\n", go_accepted-q2.size(),q2.size());
+            printf("轨道有%.2f%%的时间是空闲的。\n",(double)(100*spare_time)/time);
+            printf("降落平均要等%.2f个单位时间。\n",(double)(come_wait_time)/time);
+            printf("起飞平均要等%.2f个单位时间。\n\n",(double)(go_wait_time)/time);
+            printf("这个机场平均每个单位时间收到%.2f个降落请求。\n",(double)(total_come)/time);
+            printf("这个机场平均每个单位时间收到%.2f个起飞请求。\n\n",(double)(total_go)/time);
+        }
+    }
+    return 0;
+}
+
