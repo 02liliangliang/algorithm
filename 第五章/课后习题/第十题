@@ -1,0 +1,260 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+typedef int ElemType;
+ 
+typedef enum
+{
+    false , true
+}_bool;
+typedef struct Node
+{
+    int number ;                     
+    int waitTime;                      
+    struct Node *next ;             
+} QNode , *QueuePtr;
+typedef struct
+{
+    QueuePtr front;
+    QueuePtr rear;
+}LinkQueue;
+typedef struct node
+{
+    char runwayName[2];                 
+    _bool busyFlag;                      
+    int occupyTime;                      
+    int busyTime;                       
+    struct node *next;                 
+}runway;
+ 
+_bool InitQueue(LinkQueue *Q);
+_bool DeleteQueue(LinkQueue *Q,ElemType *airNumber,int *waitTime);
+_bool InsertQueue(LinkQueue *Q,ElemType e);
+_bool IsQueueEmpty(LinkQueue Q);
+ 
+void GetStringfromInt(int x,char *,int int_length);           
+void InitRunway(runway *,int );
+void traverseQueue_addWaitTime(LinkQueue *Q);
+int main()
+{
+    int curTime,takeoffNumber,landNumber,takeoffWaitTime,landWaitTime;
+    int freeNum,runwayAmount,landOccupyTime,takeoffOccupyTime,curLandNumber,curTakeoffNumber;
+    char ptmpAirNumber[5];
+    int tmpAirNumber,tmpWaitTime,busytime = 0;
+    LinkQueue landQueue,takeoffQueue;          
+    runway *headRunway,*ptrRunway;                             
+    curTime = -1; takeoffNumber = 1; landNumber = 5001;
+    takeoffWaitTime = landWaitTime = freeNum = 0;
+ 
+    scanf("%d%d%d",&runwayAmount,&landOccupyTime,&takeoffOccupyTime);
+ 
+    InitQueue(&landQueue);  InitQueue(&takeoffQueue);
+    headRunway = (runway *)malloc(sizeof(runway));  
+    headRunway->next =NULL;
+    InitRunway(headRunway,runwayAmount);            
+ 
+    while(1){
+        curTime++;
+		freeNum = 0;
+        printf("Current Time: %4d\n",curTime);
+        ptrRunway = headRunway;
+        while(ptrRunway->next){
+            ptrRunway = ptrRunway->next;
+            if(ptrRunway->occupyTime)   ptrRunway->occupyTime--;
+            if(ptrRunway->occupyTime == 0 ){
+                freeNum++;
+                if(1 == ptrRunway->busyFlag){
+                    printf("runway %s is free\n",ptrRunway->runwayName);
+                    ptrRunway->busyFlag = 0;
+            }
+            }
+        }
+       
+        scanf("%d%d",&curLandNumber,&curTakeoffNumber);
+        getchar();                                       
+        if(curLandNumber < 0 && curTakeoffNumber < 0){
+			if(!IsQueueEmpty(landQueue)) traverseQueue_addWaitTime(&landQueue);
+			if(!IsQueueEmpty(takeoffQueue)) traverseQueue_addWaitTime(&takeoffQueue);
+			break;
+		}
+        while(curLandNumber--){
+            InsertQueue(&landQueue,landNumber);
+            landNumber++;
+        }
+        while(curTakeoffNumber--){
+            InsertQueue(&takeoffQueue,takeoffNumber);
+            takeoffNumber++;
+        }
+        while(freeNum--){
+            if(!IsQueueEmpty(landQueue)){             
+                DeleteQueue(&landQueue,&tmpAirNumber,&tmpWaitTime);
+                landWaitTime += tmpWaitTime ;
+ 
+                ptrRunway = headRunway;
+                while(ptrRunway->next->busyFlag) ptrRunway = ptrRunway->next;
+                printf("airplane %4d is ready to land on runway %s\n",
+                       tmpAirNumber,ptrRunway->next->runwayName);
+                ptrRunway->next->busyTime += landOccupyTime;
+                ptrRunway->next->occupyTime = landOccupyTime;
+                ptrRunway->next->busyFlag = 1;
+            }
+            else if(!IsQueueEmpty(takeoffQueue)){        
+                DeleteQueue(&takeoffQueue,&tmpAirNumber,&tmpWaitTime);
+                GetStringfromInt(tmpAirNumber,ptmpAirNumber,4);
+                takeoffWaitTime += tmpWaitTime ;
+ 
+                ptrRunway = headRunway;
+                while(ptrRunway->next->busyFlag) ptrRunway = ptrRunway->next;
+                printf("airplane %s is ready to takeoff on runway %s\n",
+                       ptmpAirNumber,ptrRunway->next->runwayName);
+                ptrRunway->next->busyTime += takeoffOccupyTime;
+                ptrRunway->next->occupyTime = takeoffOccupyTime;
+                ptrRunway->next->busyFlag = 1;
+            }
+            else  break;
+        }
+       if(!IsQueueEmpty(landQueue)) traverseQueue_addWaitTime(&landQueue);
+       if(!IsQueueEmpty(takeoffQueue)) traverseQueue_addWaitTime(&takeoffQueue);
+    }
+    while((!IsQueueEmpty(landQueue)) || (!IsQueueEmpty(takeoffQueue)) || (freeNum != runwayAmount-1 ) ){
+		curTime++;
+		freeNum = 0;
+        printf("Current Time: %4d\n",curTime);
+        ptrRunway = headRunway;
+        while(ptrRunway->next){
+            ptrRunway = ptrRunway->next;
+            if(ptrRunway->occupyTime)   ptrRunway->occupyTime--;
+            if(ptrRunway->occupyTime == 0 ){
+                freeNum++;
+                if(1 == ptrRunway->busyFlag){
+                    printf("runway %s is free\n",ptrRunway->runwayName);
+                    ptrRunway->busyFlag = 0;
+            }
+            }
+        }
+        while(freeNum--){
+            if(!IsQueueEmpty(landQueue)){         
+                DeleteQueue(&landQueue,&tmpAirNumber,&tmpWaitTime);
+                landWaitTime += tmpWaitTime ;
+ 
+                ptrRunway = headRunway;
+                while(ptrRunway->next->busyFlag) ptrRunway = ptrRunway->next;
+                printf("airplane %4d is ready to land on runway %s\n",
+                       tmpAirNumber,ptrRunway->next->runwayName);
+                ptrRunway->next->busyTime += landOccupyTime;
+                ptrRunway->next->occupyTime = landOccupyTime;
+                ptrRunway->next->busyFlag = 1;
+            }
+            else if(!IsQueueEmpty(takeoffQueue)){      
+                DeleteQueue(&takeoffQueue,&tmpAirNumber,&tmpWaitTime);
+                GetStringfromInt(tmpAirNumber,ptmpAirNumber,4);
+                takeoffWaitTime += tmpWaitTime ;
+ 
+                ptrRunway = headRunway;
+                while(ptrRunway->next->busyFlag) ptrRunway = ptrRunway->next;
+                printf("airplane %s is ready to takeoff on runway %s\n",
+                       ptmpAirNumber,ptrRunway->next->runwayName);
+                ptrRunway->next->busyTime += takeoffOccupyTime;
+                ptrRunway->next->occupyTime = takeoffOccupyTime;
+                ptrRunway->next->busyFlag = 1;
+            }
+            else  break;
+        }
+        if(!IsQueueEmpty(landQueue)) traverseQueue_addWaitTime(&landQueue);
+        if(!IsQueueEmpty(takeoffQueue)) traverseQueue_addWaitTime(&takeoffQueue);
+    }
+    printf("simulation finished\n");
+    printf("simulation time: %4d\n",curTime);
+    printf("average waiting time of landing: %4.1f\n",(float)landWaitTime/(landNumber  - 5001  ));
+    printf("average waiting time of takeoff: %4.1f\n",(float)takeoffWaitTime/(takeoffNumber -1 ));
+ 
+    ptrRunway = headRunway;
+    while(ptrRunway->next){
+        ptrRunway = ptrRunway->next;
+        printf("runway %s busy time: %4d\n",ptrRunway->runwayName,ptrRunway->busyTime);
+        busytime += ptrRunway->busyTime;
+    }
+    printf("runway average busy time percentage: %4.1f%c\n",(float)busytime/runwayAmount*100/curTime,'%');
+ 
+    return 0;
+}
+void traverseQueue_addWaitTime(LinkQueue *Q)
+{
+    QueuePtr ptr = Q->front;
+    while(ptr->next != NULL){
+        ptr = ptr->next;
+        ptr->waitTime++;
+    }
+}
+void InitRunway(runway *head,int num)
+{
+    runway *ptr = head;
+    int i;
+    for(i = 1;i <= num;i++){
+        ptr->next = (runway *)malloc(sizeof(runway));
+        if(!ptr->next)  exit(1);
+        ptr = ptr->next;
+        ptr->busyFlag = 0;
+        ptr->busyTime = 0;
+        ptr->occupyTime = 0;
+        GetStringfromInt(i,ptr->runwayName,2);
+        ptr->next = NULL;
+    }
+}
+void  GetStringfromInt(int x,char *ptr,int int_length)
+{
+    char mod;   int i = 0;
+    while(i <= (int_length - 1)){
+        *(ptr + i) = '0';
+        i++;
+    }
+    *(ptr + i) = '\0';
+    i = int_length - 1;
+    do{
+        mod = x % 10 + '0';
+        *(ptr + i) = mod;
+        x = x / 10;
+        i--;
+    }while(x);
+}
+_bool InitQueue(LinkQueue *Q)
+{
+    Q->front = Q->rear =  (QueuePtr)malloc(sizeof(QNode));
+    if(!Q->front)   return false;
+    Q->front->next = NULL;
+    return true;
+}
+_bool InsertQueue(LinkQueue *Q,ElemType e)
+{
+    QueuePtr tmp = (QueuePtr)malloc(sizeof(QNode));
+    if(!tmp) return false;
+ 
+    tmp->number = e;
+    tmp->waitTime = 0;
+    tmp->next = NULL;
+    Q->rear->next = tmp;
+    Q->rear = tmp;
+    return true;
+}
+_bool DeleteQueue(LinkQueue *Q,ElemType *airNumber,int *waitTime)
+{
+	QueuePtr tmp;
+ 
+    if(Q->front == Q->rear) return false;
+ 
+    tmp = Q->front->next;
+    *airNumber = tmp->number;
+    *waitTime = tmp->waitTime;
+    Q->front->next = tmp->next;
+    if(Q->rear == tmp )
+        Q->rear = Q->front;
+    free(tmp);
+    return true;
+}
+_bool IsQueueEmpty(LinkQueue Q)
+{
+    assert(Q.front != NULL && Q.rear !=NULL);
+ 
+    if(Q.front == Q.rear) return true;
+    else return false;
+}
