@@ -1,0 +1,18 @@
+/*有序链表表示的集合中的插入操作*/
+ int insertLink ( LinkSet s0, DataType x )
+      { PNode temp ;
+      if (s0== NULL ) { print f (＂ no head node error ＂); return 0; } 
+      temp =( PNode ) malloc ( sizeof ( struct Node ));
+      if ( temp == NULL ) { printf (＂ out of space ＂); return 0; }
+      while (s0-> link != NULL ) {
+      if (s0-> link -> info == x ) { printf (＂ data already exist ＂); return 1; }
+      else if (s0-> link -> info < x )s0=s0-> link ;
+      else if (s0>link-> info > x ) {
+              temp -> info = X ; temp -> link =s0-> link ;
+              s0-> link = temp ; return 1;
+             }
+      if (s0-> link == NULL ) {
+                temp -> info = x ; temp -> link =s0-> link ;
+                s0-> link = temp ; return 1; 
+                }
+      }
