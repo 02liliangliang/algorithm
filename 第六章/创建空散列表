@@ -1,0 +1,15 @@
+/*创建空散列表*/
+ PHashDictionary createEmptyDictionary ( int m ) {
+       PHashDictionary phd =( PHashDictionary ) malloc ( sizeof ( HashDictionary ));
+       if ( phd != NULL )
+            phd -> element =( DicElement *) malloc ( sizeof ( DicElement )* m ); 
+            if ( phd -> element ) {
+                 phd -> m = m ;
+                 for ( int i =0; i < m ; i ++) phd -> element [ i ]. key =0;
+                 return ( phd );
+                 }
+            else free phd ;
+       }
+      print f (＂ Out of space !! \n ＂);
+      return NULL ;
+}
