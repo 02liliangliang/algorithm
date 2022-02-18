@@ -1,0 +1,18 @@
+/*求单链表表示集合的交集*/
+ int intersectionLink ( LinkSet s0, LinkSet s1, LinkSet s2) {
+      PNode x ;
+      if (s0==NULL II s1== NULL  II s2== NULL ) { printf (＂ no head node error''); 
+            return 0; }
+      s2-> link = NULL ;
+      s0=s0->link;s1=s1一＞ link ;
+      while ( s0 != NULL && s1!= NULL )
+           if (s0-> info > s1-> info )s1=s1-> link ; 
+           else if (s0-> info <s1-> info )s0=s0-> link ;
+           else if (s0-> info ==s1-> info )
+           {       x =( PNode ) malloc ( sizeof ( struct Node ));
+                   if ( x == NULL ) { print f (＂ out of space "); return 0; } 
+                   x -> info =s0-> info ; x -> link = NULL ;s2-> link = x ;
+                   s0=s0-> link ;s1=s1-> link ;s2=s2-> link ； 
+          }
+ return 1;
+}
