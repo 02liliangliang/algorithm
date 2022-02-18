@@ -1,0 +1,14 @@
+/*集合的赋值*/
+ int assignLink ( LinkSet s0, LinkSet s1) {
+      PNode x ;
+      if (s0== NULL II s1== NULL )  { printf (＂no head node error＂); return 0; }
+     s0-> link = NULL ;
+     s1=s1-> link ;
+     while (s1!= NULL ) {
+           x =( PNode ) malloc ( sizeof ( struct Node ));
+           if ( x == NULL ) { print f (＂ out of space ＂); return 0; }
+           x -> info =s1-> info ; x-> link = NULL ;s0-> link = x ;
+           s1=s1->link;s0=s0->link;
+     }
+ return 1;
+}
