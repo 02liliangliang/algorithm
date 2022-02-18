@@ -1,0 +1,15 @@
+/*空集合的创建*/
+ BitSet * createEmptySetBit ( int n ) {
+       int i ;
+       BitSet * s =( BitSet *) malloc ( sizeof ( BitSet ));
+       if ( s != NUL ) {
+                   s -> size =( n +7)/8;
+                   s -> array =( char *) malloc ( s -> size * sizeof ( char )); 
+                   if ( s -> array != NULL ) { 
+                                for ( i =0; i < s -> size ; i ++) s .-> array [ i ]='\0';
+                                return s ;
+                                }
+      }
+      printf (＂ Out of space !\ n ");
+      return NULL ;
+ }
