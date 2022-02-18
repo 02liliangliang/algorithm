@@ -1,0 +1,10 @@
+/*散列表的插入算法﹣用线性探查法解决碰撞*/
+int linearInsert ( HashDictionary * phash , DicElememt ele ) {
+     int position ;
+     if ( linearSearch ( phash , ele . key ,& position )==1)
+         printf (" Find in ＂); 
+     else if ( position !=-1)
+        phash -> element [ position ]= ele ;
+     else return 0;
+     return 1;
+}
