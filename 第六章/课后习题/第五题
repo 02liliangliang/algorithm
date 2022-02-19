@@ -1,0 +1,24 @@
+#include<stdio.h>
+
+int main(int argc, char *argv[])
+{
+    int i, num;
+    struct hash_node *vec[LEN];
+    if (argc < 2) {
+	fprintf(stderr, "Usage: %s num\n", argv[0]);
+	exit(-1);
+    }
+    for (i = 0; i < LEN; i++)
+	vec[i] = NULL;
+    num = atoi(argv[1]);
+    printf("\tthe first times\n");
+    create_hash(vec, num);
+    print_hash(vec);
+    printf("\n\tthe second times\n");
+    insert_hash_node(vec, 29);
+    print_hash(vec);
+    printf("\n\tthe third times\n");
+    delete_hash_node(vec, 1);
+    print_hash(vec);
+    return 0;
+}
