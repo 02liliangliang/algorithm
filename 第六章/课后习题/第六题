@@ -1,0 +1,66 @@
+void collsion(hash_node *hash[],int elem, hash_node *news）
+{
+    if(hash[elem]==NULL)
+    {
+        hash[elem]=news;
+    }
+    else
+    {
+        news->next=hash[elem];
+        hash[elem]->prev=news;
+        hash[elem]=news;
+    }
+}
+void Insert(hash_node *hash[],int key)
+{
+    hash_node *temp=new hash_node();
+    temp->data=key;
+    temp->next=NULL;
+    temp->prev=NULL;
+    int location=Hash(key);
+    collsion(hash,location,temp);
+}
+
+void Delete(hash_node *hash[],int key)
+{
+
+    int low=Hash(key);
+    hash_node *temp=hash[low];
+    if(temp==NULL)
+    {
+        cout<<"this number doesn't exit!"<<endl;
+        return;
+    }
+    else
+    {
+        if(temp->data==key)
+        {
+            hash[low]=temp->next;
+            delete temp;
+            return;
+        }
+        else
+        {
+            while(temp->data!=key)
+            {
+                if(temp->next==NULL)
+                {
+                    cout<<"this number isn't found"<<endl;
+                    return;
+                }
+                temp=temp->next;
+            }
+            if(temp->next==NULL)
+            {
+                temp->prev->next=NULL;
+                delete temp;
+            }
+            else
+            {
+                 temp->prev->next=temp->next;
+                 temp->next->prev=temp->prev;
+                 delete temp;
+            }
+        }
+    }
+}
