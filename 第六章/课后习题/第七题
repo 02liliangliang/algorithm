@@ -1,0 +1,87 @@
+#include<stdio.h>
+#define N 12
+typedef struct HNode {
+	int key;
+	struct HNode *next;
+}Hnode;
+void createHB(Hnode *heahLink[], int key[], int n) {
+	for (int i = 0; i < n; i++) {
+		Hnode *head = (Hnode *)malloc(sizeof(Hnode));
+		if (!head) {
+			printf("error\n");
+			return;
+		}
+		head->key = 0;
+		head->next = NULL;
+		heahLink[i] = head;
+	}
+	for (int i = 0; i < n; i++) {
+		Hnode *p, *H,*s;
+		int j = key[i] % 11;
+		H = p = heahLink[j];
+		while (p->next != NULL) {
+			p = p->next;
+		}
+		s = (Hnode *)malloc(sizeof(Hnode));
+		s->key = key[i];
+		s->next = NULL;
+		p->next = s;
+		H->key++;
+	}
+}
+void deleteNode(Hnode *heahLink[], int key) {
+	Hnode *h, *p,*q;
+	h = q = heahLink[key % 11];
+	p = q->next;
+	while (p->next != NULL && p->key !=key) {
+		q = p;
+		p = p->next;
+	}
+	if (!p->next) {
+		printf("the key does't exist!!\n");
+	}
+	else {
+		q->next = p->next;
+		h->key--;
+		free(p);
+	}
+}
+
+void FreeNode(Hnode *heahLink[],int n) {
+	Hnode *h, *p;
+	for (int i = 0; i < n; i++) {
+		h = p = heahLink[i];
+		while (p->next != NULL) {
+			p = p->next;
+			free(h);
+			h = p;
+		}
+		free(h);
+	}
+}
+void print(Hnode *heahLink[],int n) {
+	Hnode *p;
+	printf("下标 个数\n");
+	for (int i = 0; i < n; i++) {
+		p = heahLink[i];
+		printf("  %-2d  ", i);
+		while (p->next != NULL) {
+			printf("%-2d  ", p->key);
+			p = p->next;
+		}
+		printf("%-2d \n", p->key);
+	}
+}
+int main() {
+	int key[] = { 13,28,72,5,16,8,7,9,34,24,18,25 };
+	Hnode *heahLink[N];
+	createHB(heahLink, key, N);
+	printf("..before deleting..\n");
+	print(heahLink, N);
+	deleteNode(heahLink, key[1]);
+	printf("..after deleting..\n");
+	print(heahLink, N);
+	FreeNode(heahLink, N);
+	getchar();
+	return 0;
+}
