@@ -1,0 +1,12 @@
+/*二叉排序树的检索算法*/
+int search ( PBinSearchTree ptree , KeyType key , PBinSearchNode * position ) {
+     PBinSearchNode p , q ; 
+     P =* ptree ; g = p ; 
+     while ( p != NULL ) {
+        g =p ;
+        if ( p -> key == key ) { * position = p ; return 1; }
+        else if ( p -> key > key ) p = p ->rlink;
+        else p = p -> rlink ; 
+        }
+       * position = g ; return 0;  
+}
