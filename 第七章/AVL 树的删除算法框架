@@ -1,0 +1,15 @@
+/*AVL 树的删除算法框架*/
+avlDelete ( PAVLNode p）{
+while (* p 不是叶结点） do  {
+       if ( p -> bf =1).
+             找＊ p 右子树中最左下结点＊ r ; 
+       else 找＊ p 左子树中最右下结点＊ r ;
+       p -> key = r -> key ;
+       P = r ;
+}
+q= p ;
+for ( p = parent ( p ); p -> bf !=0; p = parent ( p ))
+        调整（删除＊ q 结点后的)p -> bf ;
+调整（删除＊ g 结点后的)p -> bf ;
+删除＊ q 结点；
+}
