@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<malloc.h>
+ 
+struct avl{
+	int data;
+	int frequency;
+	int hight;
+	avl *left;
+	avl* right;
+};
+int max(int a,int b){
+	return a>b?a:b;}
+avl* init(int root_data){
+ 
+	avl* p=(avl*)malloc(sizeof(avl));
+	p->data=root_data;
+	p->frequency=1;
+	p->left=NULL;
+	p->right=NULL;
+	p->hight=0;
+	return p;
+}
+int hgt(avl *x)
+{
+	if(!x)
+		return -1;
+	return x->hight;
+}
+void leftrotate(avl * &root){
+	avl *tmp=root->right;
+	root->right=tmp->left;
+	tmp->left=root;
+	root->hight=max(hgt(root->left),hgt(root->right))+1;
+	tmp->hight=max(hgt(tmp->left),hgt(tmp->right))+1;
+	root=tmp;
+ 
+}
+void rightrotate(avl * &root){
+	avl *tmp=root->left;
+	root->left=tmp->right;
+	tmp->right=root;
+	root->hight=max(hgt(root->left),hgt(root->right))+1;
+	tmp->hight=max(hgt(tmp->left),hgt(tmp->right))+1;
+	root=tmp;
+ 
+}
+void LRrotate(avl * &root){
+	leftrotate(root->left);
+	rightrotate(root);
+}
+void RLrotate(avl * &root){
+	rightrotate(root->right);
+	leftrotate(root);
+}
+void  insert(avl * &root,int x){
+	avl *p=init(x);
+	if(!root)
+		root=p;
+	else if(root->data==x)
+		root->frequency++;
+	else if(root->data>x){
+		insert(root->left,x);
+		if(hgt(root->left)-hgt(root->right)==2){
+			if(x<root->left->data)
+				rightrotate(root);	
+			else if(x>root->left->data)
+				LRrotate(root);	
+		}
+	}
+	else if(root->data<x){
+		insert(root->right,x);
+		if(hgt(root->right)-hgt(root->left)==2){
+			if(x>root->right->data)
+				leftrotate(root);	
+			else if(x<root->right->data)
+				RLrotate(root);	
+		}
+	}
+	root->hight=max(hgt(root->left),hgt(root->right))+1;
+}
