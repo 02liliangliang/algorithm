@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <iostream>
+#include <stack>
+using namespace std;
+
+typedef struct  TREE {
+	int val;
+	TREE *left, *right;
+}*BITREE;
+
+void create(BITREE *root)
+{
+	int val;
+	cin >> val;
+	if (val == 0) {
+		*root = NULL;
+		return;
+	}
+	else {
+		*root = (BITREE)malloc(sizeof(TREE));
+		(*root)->val = val;
+		create(&(*root)->left);
+		create(&(*root)->right);
+	}
+}
+void PreOrder(BITREE *root) {
+	if (*root == NULL)return;
+	cout << (*root)->val << " ";
+	PreOrder(&(*root)->left);
+	PreOrder(&(*root)->right);
+}
+BITREE *Find(BITREE *root, int p, int q) {
+	if (*root == NULL || (*root)->val == p || (*root)->val == q)return root;
+	BITREE *left = Find(&(*root)->left, p, q);
+	BITREE *right = Find(&(*root)->right, p, q);
+	if (*left && *right)return root;
+	if (*left)return left;
+	if (*right)return right;
+}
+int main()
+{
+	cout << "PS:请注意输入0代表结束\n";
+	cout << "——————————————————————————————————————————————" << endl;
+
+	BITREE root;
+	root = (BITREE)malloc(sizeof(TREE));
+	create(&root);
+	cout << "\n先序遍历的结果为：" << endl;
+	PreOrder(&root);
+	cout << "\n请输入p和q的值" << endl;
+	int p, q;
+	cin >> p >> q;
+	cout << "\n这两个节点的最近祖先节点对应的值为：" << endl;
+	cout << (*Find(&root, p, q))->val << endl;
+}
