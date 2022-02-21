@@ -1,0 +1,23 @@
+void insertRBT_Node(RBT_Node *node, RBT_Node *root) {
+    if (root == nullptr) {
+        root = node;
+        return ;
+    }
+    RBT_Node* parent = nullptr, cur = root;
+    while (cur != nullptr) {
+        parent = cur;
+        if (cur->val < node->val)
+            cur = cur->right;
+        else if (cur->val > node->val)
+            cur = cur->left;
+        else
+            return nullptr;
+    }
+    node->parent = parent;
+    if (parent->val < node->val)
+        parent->right = node;
+    else
+        parent->left = node;
+    node->color = RED;
+    insertFixUp(node, root);
+}
