@@ -1,0 +1,39 @@
+void deleteRBT_Node(RBT_Node *root, RBT_Node *node) {
+    RBT_Node *parent, *child;
+    bool color;
+    if (node->left != nullptr && node->right != nullptr) { 
+        RBT_Node *del = node->right;
+        while (del->left != nullptr) 
+            del = del->left;
+        node->val = del->val;
+        node->color = del->color;
+        if (del->parent == node)
+            node->right = del->right;
+        parent = del->parent;
+        child = del->right;
+        parent->left = child;
+        child->parent = parent;
+        if (del->color == BLACK)
+            removeFixUp(child, parent, root);
+        delete del;
+        return ;
+    }
+    if (node->left == nullptr)
+        child = node->right;
+    else
+        child = node->left;
+    parent = node->parent;
+    if (child != nullptr)
+        child->parent = parent;
+    if (parent != nullptr) {
+        if (parent->left == node)
+            parent->left = child;
+        else
+            parent->right = child;
+    }
+    else
+        root = child;
+    if (node->color == BLACK)
+        removeFixUp(child, parent, root);
+    delete node;
+}
