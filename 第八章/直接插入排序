@@ -1,0 +1,12 @@
+/*直接插入排序*/
+ void insert Sort ( SortObject * pvector ) {
+      int i , j ;
+      RecordNode temp ;
+      RecordNode * data = pvector -> record ;
+      for ( i =1; i < pvector -> n ;++ i ) {
+            temp = data [ i ];
+            for ( j = i -1; temp . key < data [ j ]. key && j >=0; j --)
+                  data [ j +1]= data [ j ];
+                  if ( j != i -1) data [ j +1]= temp ;
+       }
+}
