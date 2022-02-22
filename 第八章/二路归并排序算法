@@ -1,0 +1,11 @@
+/*二路归并排序算法*/
+ void mergeSort ( SortObject * pvector ) {
+       RecordNode record [ pvector -> n ];
+       int length =1;
+       while ( length < pvector -> n ) {
+            mergePass ( pvector -> record , record , pvector -> n , length );
+            length *=2;
+            mergePass ( record , pvector -> record , pvector -> n , length );
+            length *=2;
+     }
+}
