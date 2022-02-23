@@ -1,12 +1,12 @@
 /*一趟归并算法*/
  void mergePass ( RecordNode * r , RecordNode *r1, int n , int length ) {
-       int j ,i=0;
-       while ( i +2* length -1< n ) {
-              merge ( r , r1, i , i + length -1, i +2* length -1);
-              i +=2* length ;
-              }
-       if ( i + length -1< n -1) 
-               merge ( r ,r1, i , i + length -1, n -1); 
-       else 
-               for ( j = i ; j < n ; j ++)r1[ j ]= r [ j ]；
+      int j ,i=0;
+      while ( i +2* length -1< n ) {
+             merge ( r , r1, i , i + length -1, i +2* length -1);
+             i +=2* length ;
+             }
+      if ( i + length -1< n -1) 
+              merge ( r ,r1, i , i + length -1, n -1); 
+      else 
+             for ( j = i ; j < n ; j ++)r1[ j ]= r [ j ]；
 }
