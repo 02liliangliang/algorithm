@@ -10,6 +10,6 @@
          else left = mid +1;
          }
     for ( j = i -1; j >= left ; j --) data [ j +1]= data [ j ];
-         if ( left != i ) data [ left ]= temp ;
+        if ( left != i ) data [ left ]= temp ;
          }
 }
