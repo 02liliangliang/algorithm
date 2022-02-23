@@ -1,11 +1,11 @@
 /* 两组归并算法*/
 void merge ( RecordNode * r , RecordNode *r1, int low , int m , int high ) {
- int i , j , k ;
- i = low; j = m +1; k = low ;
- while (( i <= m )&&( j <= high )) {
+   int i , j , k ;
+   i = low; j = m +1; k = low ;
+   while (( i <= m )&&( j <= high )) {
          if ( r[ i ]. key <= r [ j ]. key ) r1[ k ++]= r [ i ++];
          else r1[ k ++]= r [ j ++];
 }
- while ( i <= m ) r1[ k ++]= r [ i ++];
- while ( j <= high ) r1[ k ++]= r [ j ++];
+  while ( i <= m ) r1[ k ++]= r [ i ++];
+  while ( j <= high ) r1[ k ++]= r [ j ++];
 }
