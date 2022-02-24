@@ -1,0 +1,12 @@
+void ReSort(SeqList R)
+{
+int i=1,j=n; 
+while (i<j) 
+{ while(i<j&&R[i].key<0) 
+i++;
+R[0]=R[i]; 
+while(i<j&&R[j].key>=0)
+j--;
+R[i++]=R[j];R[j--]=R[0];
+}
+}
