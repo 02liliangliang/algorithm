@@ -1,0 +1,109 @@
+#include <stdio.h>
+#include <malloc.h>
+#include <string.h>
+
+#define MAX_LEN 9                          
+#define RADIX 27                              
+
+typedef char String[MAX_LEN + 1];             
+typedef struct node
+{undefined
+    String word;
+    struct node *next;
+}link_node;                                 
+static void disp_word(String R[], int n)
+{undefined
+    int i;
+    printf("  ");
+    for(i = 0; i < n; i++)
+    {undefined
+        printf("[%s] ", R[i]);
+    }
+    printf("\n");
+}
+static void pre_process(String R[], int n)
+{undefined
+    int i, j;
+    for(i = 0; i < n; i++)
+    {undefined
+        if(strlen(R[i]) < MAX_LEN)
+        {undefined
+            for(j = strlen(R[i]); j < MAX_LEN; j++)
+            {undefined
+                R[i][j] = ' ';
+            }
+            R[i][j] = '\0';
+        }
+    }
+}
+static void end_process(String R[], int n)
+{undefined
+    int i, j;
+    for(i = 0; i < n; i++)
+    {undefined
+        for(j = MAX_LEN - 1; R[i][j] == ' '; j--)
+            R[i][j + 1] = '\0';
+    }
+}
+static void distribute(String R[], link_node *head[], link_node *tail[], int j, int n)
+{undefined
+    int i;                
+    int k;                   
+    link_node *p;
+    for(i = 0; i < n; i++)            
+    {undefined
+        if(R[i][j] == ' ')               
+            k = 0;
+        else
+            k = R[i][j] - 'a' + 1;
+        p = (link_node *)malloc(sizeof(link_node)); 
+        strcpy(p->word, R[i]);
+        p->next = NULL;
+        if(head[k] == NULL)
+        {undefined
+            head[k] = p;
+            tail[k] = p;
+        }
+        else
+        {undefined
+            tail[k]->next = p;
+            tail[k] = p;
+        }
+    }
+}
+static void collect(String R[], link_node *head[])
+{undefined
+    int i;
+    int k = 0;
+    link_node *pre, *p;
+    for(i = 0; i < RADIX; i++)
+    {undefined
+        if(head[i] != NULL)
+        {undefined
+            pre = head[i];
+            p = pre->next;
+            while(p != NULL)
+            {undefined
+                strcpy(R[k++], pre->word);
+                free(pre);
+                pre = p;
+                p = p->next;
+            }
+            strcpy(R[k++], pre->word);
+            free(pre);
+        }
+    }
+}
+
+static void radix_sort(String R[], int n)
+{undefined
+    int i, j;
+    link_node *head[RADIX], *tail[RADIX];
+    for(i = MAX_LEN - 1; i >= 0; i--)               
+    {undefined
+        for(j = 0; j < RADIX; j++)
+            head[j] = tail[j] = NULL;
+        distribute(R, head, tail, i, n);              
+        collect(R, head);                        
+    }
+}
