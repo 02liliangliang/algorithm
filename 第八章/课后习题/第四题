@@ -1,0 +1,18 @@
+template < class Type > void dataList < Type >:: shaker _ Sort (){
+         int low =1,high - CurrentSize -1,i,j;  int exchange ;
+         while ( low < high ) {
+         j =low ;
+         for ( i =low ; i < high ; i ++)
+              if ( Vectorfi ]> Vector [ i +1]) {
+                    Swap ( Vector [ i ], Vector [ i +1]);
+                     j =i;
+                    }
+            high = j ;
+            for ( i =high : i > low ; i --)
+               if ( Vector [-1]> Vector [ i ]) {
+                      Swap ( Vector [-1], Vector [ i ];
+                      j=i;
+                     }
+             low=j;
+             }
+}
