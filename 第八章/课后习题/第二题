@@ -60,16 +60,3 @@ head->next_node=r;
 select(head->next_node,num-1);
 }
 }
-int main()
-{
-int num;
-Node *head;
-head=( Node *)malloc(sizeof(Node));
-printf("请输入序列数据的个数：");
-scanf("%d",&num);
-printf("请输入序列的数据：\n");
-input(head,num);
-printf("\n选择排序后的序列为：\n");
-select(head,num);
-output(head,num);
-getch();}
