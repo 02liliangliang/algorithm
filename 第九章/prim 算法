@@ -1,0 +1,28 @@
+/* prim 算法*/
+void prim ( GraphMatrix * pgraph , Edge mst []) {
+      int i , j , min , vx , vy ; 
+      double weight ;
+      Edge edge ;
+      for ( i =0; i < VN -1;++ i ) {
+           mst [ i ]. start _ vex =0;
+           mst [ i ]. stop _ vex = i +1;
+           mst [ i ]. weight = pgraph -> arcs [0][ i +1];
+      }
+      for ( i =0; i < VN -1;++ i ) {
+           weight = MAX ; min = i ;
+           for ( j = i ; j < VN -1;++ j )
+                if ( mst [ j ]. weight < weight ) {
+                     weight = mst [ j ]. weight ;
+                     min = j ;
+                }
+            edge = mst [ min ]; mst [ min ]= mst [ i ]; mst [ i ]= edge ; 
+            vx = mst [ i ]. stop _ vex ;
+            for ( j = i +1; j < VN -1;++ j ) {
+                    vy = mst [ j ]. stop _ ex ;
+                    weight = pgraph -> arcs [ vx ][ vy ];
+                    if ( weight < mst [ j ] weight ）{
+                            mst [ j ]. weight = weight ;
+                            mst [ j ]. start _ vex = vx;
+                   }
+            }
+}
