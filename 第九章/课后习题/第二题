@@ -1,0 +1,30 @@
+int AOV::Topusort_AOV()
+{
+    stack<int>in_is_null;
+    int i;
+    ADTnode*p;
+    for(i=0;i<nodelist.size();i++)
+    {
+        if(nodelist[i]->in==0)
+            in_is_null.push(i);
+    }
+    int num=0;
+    int idx;
+    while(!in_is_null.empty())
+    {
+        idx=in_is_null.top();
+        in_is_null.pop();
+        cout<<nodelist[idx]->node<<" ";
+        num++;
+        for(p=nodelist[idx]->first;p!=nullptr;p=p->next)
+        {
+            i=p->node;
+            (nodelist[i]->in)--;
+            if(nodelist[i]->in==0)
+                in_is_null.push(i);
+        }
+    }
+    if(num==nodelist.size())
+        return 0;
+    return -1;
+}
