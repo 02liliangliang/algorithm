@@ -1,0 +1,39 @@
+public int[] dijkstra(int[][] weight) {
+	int[] dis = weight[0];
+	boolean[] sta = new boolean[weight[0].length];
+	sta[0] = true;
+	for(int i=0; i<weight.length; i++) {
+		for(int j=0; j<weight[0].length; j++) {
+			if(weight[i][j] == -1)
+				weight[i][j] = Integer.MAX_VALUE;
+		}
+	}
+		for(int i=1; i<weight[0].length; i++) {
+		int min = Integer.MAX_VALUE;
+		int index = -1；
+		for(int j=1; j<weight[0].length; j++) {
+			if(sta[j] == false) {
+			if(dis[j] < min) {
+				index = j; 
+				min = dis[j];
+			}
+		}
+	}
+	if(index != -1) {  
+		sta[index] = true;
+			}else {       
+			continue;
+		}
+		for(int l=1; l<weight[0].length; l++) {
+			if(sta[l] == false) {  
+				if(weight[index][l] != Integer.MAX_VALUE   
+					&& (min + weight[index][l] < dis[l])) {
+				dis[l] = min + weight[index][l];
+			}
+					
+		}
+	}   
+                }
+return dis;
+	}
+}
