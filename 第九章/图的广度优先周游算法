@@ -1,0 +1,6 @@
+/*图的广度优先周游算法*/
+ void bft ( Graph g ) {
+        Vertex v;
+        for ( v = firstVertex ( g ); v != NULL ; v = nextVertex ( g , v ))
+           if ( v . mark == FALSE ) bfs ( g , v );
+}
