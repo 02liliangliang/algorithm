@@ -1,0 +1,20 @@
+/*Dijkstra算法*/
+void dijkstra ( GraphMatrix * graph , Path dist []) {
+     int i , j , mv ; AdjType minw ;
+     init ( graph , dist );
+     for ( i =1; i < VN ;++ i ){
+           minw = MAX ; mv =0;
+           for ( j =1; j < VN ;++ j )
+                if ( graph -> arcs [ j ][ j ]==0 &&  dist [ j ]. length<minw )
+                {      mv = j ; minw = dist [ j ]. length ; }
+           if ( mv ==0) break ;
+           graph -> arcs [ mv ][ mv ]=1; 
+           for ( j =1; j < VN ;++ j ) {
+                if ( graph -> arcs [ j ][ j ]==0 && 
+                    dist [ j ]. length > dist [ mv ].1ength+ graph -> arcs [ mv ][ j ]) {
+                 dist [ j ]- prevex = mv;
+                 dist [ j ]. length = dist [ mv ].1ength+ graph -> arcs [ mv ][ j ];
+                }
+          }
+}
+}
