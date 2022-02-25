@@ -1,0 +1,7 @@
+/*图的深度优先周游算法*/
+void dft(Graph g) {
+    Vertex v ;
+    for ( v = firstVertex ( g ); v != NULL ; V = nextVertex ( g , v ))
+        if ( v . mark == FALSE ) dfs ( g,v );
+}
+
