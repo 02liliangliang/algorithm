@@ -1,0 +1,26 @@
+template<class T>
+void Graph<T>::UnweightPath(int index)   
+{
+    if (index >= size)
+        cout << "Out of range";
+    int Currdist;    
+
+    for (Currdist = 0;Currdist < size;Currdist++) 
+    {
+        for (int i = 0;i < size;i++)   
+        {
+            if (VSet[index].table[i].Known == false && VSet[index].table[i].dist == Currdist)   
+            {
+                VSet[index].table[i].Known = true;  
+                for (vector<Vertex<T>>::iterator iter = VSet[i].adj_list.begin();iter != VSet[i].adj_list.end();iter++)    
+                {
+                    if (VSet[index].table[iter->value].dist == INF)    
+                    {
+                        VSet[index].table[iter->value].dist = Currdist + 1;     
+                        VSet[index].table[iter->value].Path = VSet[i].value;
+                    }
+                }
+            }
+        }
+    }
+}
