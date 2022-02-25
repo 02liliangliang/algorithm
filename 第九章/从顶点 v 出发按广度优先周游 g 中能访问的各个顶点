@@ -1,0 +1,15 @@
+/*从顶点 v 出发按广度优先周游 g 中能访问的各个顶点*/
+ void bfs ( Graph g , Vertex v ) {
+       Vertex v1,v2;
+       Queue q = createEmptyQueue ();
+       enQueue ( q , v );
+       while (! is EmptyQueue ( q )) {
+       v1= frontQueue ( q ); deQueue ( q );
+       if (v1. mark == TRUE ) continue ;
+       v1. mark = TRUE ;v2= firstAdjacent ( g ,v1); 
+       while (v2!= NULL ) {
+             if (v2.mark== FALSE ) enQueue ( q ,v2);
+             v2= nextAdjacent ( g ,v1,v2);
+             }
+       }
+}
