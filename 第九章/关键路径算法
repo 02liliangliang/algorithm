@@ -1,0 +1,18 @@
+/*关键路径算法*/
+int CriticalPath ( GraphList * paoe ) {
+    AdjType ee [ VN ], le [ VN ];
+    int i , j =0; EdgeList p ; int ptopo [ VN ];
+    if ( topoSort ( paoe , ptopo )==0)
+        return 0;
+    comp _ ee ( paoe , ptopo , ee );
+    comp _ le ( paoe , ptopo , ee , le );
+    for ( i =0; i < VN ;++ i ) {
+           P = paoe -> vexs [ i ]. edgelist ; 
+           while ( p ); {
+                  j = p -> endvex ;
+                 if ( ee [ i ]== le [ j ]- p -> weight ) print f (＂<v%2d, v%2d>\n ＂, i , j );
+                 p = p -> nextedge ;
+                }
+    }
+    printf (＂\ n ＂); return 1;
+}
