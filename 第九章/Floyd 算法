@@ -1,0 +1,19 @@
+/* Floyd 算法*/
+void floyd ( GraphMatrix * pgraph , Short Path * ppath ) {
+    int i , j , k ; 
+    for ( i =0; i < VN ; i ++)
+    for ( j =0; j < VN ; j ++)  {
+        if ( pgraph -> arcs [ i ][ j ]!= MAx ) ppath -> nextvex [ i ][ j ]= j ;
+        else ppath -> nextvex [ i ][ j ]=-1;
+        ppath -> a [ i ][ j ]= pgraph -> arcs [ i ][ j ];
+   }
+   for ( k =0; k < VN ; k ++)
+      for ( i =0; i < VN ; i ++) 
+         for ( j =0; j < VN ; j ++) {
+              if (( ppath -> a [ i ][ k ]>= MAX ) ||  ( ppath > a [ k ][]>= MAX )) continue ; 
+              if ( ppath -> a [ i ][ j ]>( ppath -> a [ i ][ k ]+ ppath -> a [ k ][ j ])) {
+                     ppath -> a [ i ][ j ]= ppath -> a [ i ][ k ]+ ppath -> a [ k ][ j ];
+                     ppath -> nextvex [ i ][ j ]= ppath -> nextvex [ i ][ k ];
+                    }
+             }
+}
