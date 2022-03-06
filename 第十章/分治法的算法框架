@@ -1,0 +1,7 @@
+/*分治法的算法框架*/
+ return _ type d _ and _ c ( objArray * p , int i , int j ) {
+     int temp ;
+     if ( simple ( p , i , j )) return solve ( p , i , j );
+     temp = divide ( p , i , j );
+     return ( combine ( d _ and _ c ( p , i , temp -1), d _ and _ c ( p , temp , j )));
+}
