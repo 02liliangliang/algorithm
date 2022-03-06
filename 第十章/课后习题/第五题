@@ -1,0 +1,92 @@
+#include <iostream>
+#include <stdio.h>
+ 
+const int MAXSIZE = 100;
+const int MAX = 1000000000;
+int g_iArr[MAXSIZE][MAXSIZE];
+int g_iResult;
+int g_iPath[MAXSIZE];
+int g_n;
+int g_iCurResult;
+int g_iBestPath[MAXSIZE];
+ 
+void swap(int* pI,int* pJ)
+{ 
+     int iTemp = *pI;
+     *pI=  *pJ;
+     *pJ = iTemp;
+}
+ 
+void printResult(int n,int* pArr)
+{
+     printf("%d\n",g_iResult);
+     for(int i = 1 ; i <= n ; i++)
+    {
+          if( i != 1)
+          {
+	printf(" %d",pArr[i]);
+          }
+          else
+         {
+	printf("%d",pArr[i]);
+          }
+     }
+      printf(" 1\n");
+}
+void backTrace(int i,int* pArr)
+{
+     if(i == g_n)
+        {
+	if((g_iArr[pArr[i-1]][pArr[i]] != 0) && (g_iArr[pArr[g_n]][1] != 0)  && 
+	(g_iCurResult + g_iArr[pArr[i-1]][pArr[i]] + g_iArr[pArr[g_n]][1] < g_iResult ))
+        {
+	g_iResult = g_iCurResult + g_iArr[pArr[i-1]][pArr[i]] + g_iArr[pArr[g_n]][1];
+	for(int k = 1 ; k <= g_n ; k++)
+	{
+	    g_iBestPath[k] = pArr[k];
+	}
+         }
+   }
+   else
+   {
+       for(int j = i ; j <= g_n ; j++)
+       {
+            if( (g_iArr[pArr[i-1]][pArr[j]] != 0) && (g_iCurResult + g_iArr[ pArr[i-1] ][ pArr[j] ] < g_iResult) )
+            {
+	swap(&pArr[i],&pArr[j]);
+	g_iCurResult += g_iArr[ pArr[i-1] ][ pArr[i] ];
+	backTrace(i+1,pArr);
+	g_iCurResult -= g_iArr[pArr[i-1]][ pArr[i] ];
+	swap(&pArr[i],&pArr[j]);
+             }
+        }
+    }
+}
+ 
+void process()
+{
+     while(EOF != scanf("%d",&g_n))
+    {
+         for(int i = 1 ; i <= g_n ; i++)
+         {
+	for(int j = 1 ; j <= g_n ; j++)
+	{
+	     scanf("%d",&g_iArr[i][j]);
+	}
+         }
+         for(int j = 1 ; j <= g_n ; j++)
+         {
+	g_iPath[j] = j;
+         }
+         g_iResult = MAX;
+         g_iCurResult = 0;
+         backTrace(2,g_iPath);
+         printResult(g_n,g_iBestPath);
+    }
+}
+int main(int argc,char* argv[])
+{
+      process();
+      getchar();
+      return 0;
+}
