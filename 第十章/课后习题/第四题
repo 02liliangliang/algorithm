@@ -1,0 +1,67 @@
+struct goods{
+	int wight;
+	int value;
+};
+struct Node{
+	int lv;
+	int wei;
+	int val;
+	int status[N];
+};
+int n,bestValue,cv,cw,C;
+int final[N];
+struct goods goods[N];
+int BranchBound(){
+	queue<Node> que;
+	Node n1={0,0,0,{0}};
+	que.push(n1);
+	while(!que.empty()){
+		Node nd;
+		nd=que.front();
+		int lv=nd.lv;	
+		if(lv>=n){	
+			if(nd.val>bestValue)
+			{
+				bestValue=nd.val;
+				for(int i=0;i<n;i++)
+				{
+					final[i]=nd.status[i];
+				}
+			}
+			que.pop();
+			continue;
+		}
+		if(nd.wei+goods[lv].wight<=C)
+		{			
+			Node mid = que.front();
+			mid.lv+=1;
+			mid.val+=goods[lv].value;
+			mid.wei+=goods[lv].wight;
+			mid.status[lv]=1;
+			que.push(mid); 
+		}
+		Node mid2 =  que.front();
+		mid2.status[lv]=0;
+		mid2.lv+=1;
+		que.push(mid2);
+		que.pop(); 	
+	}
+	return bestValue;
+}
+int main()
+{
+    printf("物品种类n：");
+    scanf("%d",&n);	
+    printf("背包容量C：");
+    scanf("%d",&C);
+    for(int i = 0; i < n; i++){
+        printf("物品%d的重量w[%d]及其价值v[%d]：",i+1,i+1,i+1);
+        scanf("%d%d",&goods[i].wight,&goods[i].value);
+    }
+    int sum3 = BranchBound();   
+    printf("回溯法求解0/1背包问题:\nX=[");
+    for(int i = 0; i < n; i++)
+        cout << final[i] <<" ";
+    printf("]   装入总价值%d\n",sum3);
+    return 0;
+}
