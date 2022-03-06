@@ -1,0 +1,36 @@
+#incldue<stdio.h>
+int n=5，C=10; 
+int w[MAXN]={0，2，2，6，5，4};
+int v[MAXN]={0，6，3，5，4，6}; 
+int dp[MAXN][MAXW];
+int x[MAXN];
+int maxv;
+void Knapsack()  
+{  int i，r;
+   for (i=0;i<=n;i++)
+      dp[i][0]=0;
+   for (r=0;r<=C;r++) 
+      dp[0][r]=0;
+   for (i=1;i<=n;i++)
+   {  for (r=1;r<=C;r++)
+        if (r<w[i])
+           dp[i][r]=dp[i-1][r];
+        else
+           dp[i][r]=max(dp[i-1][r]，dp[i-1][r-w[i]]+v[i]);
+   }
+}
+void Buildx()   
+{  int i=n，r=C;
+   maxv=0;
+   while (i>=0)   
+   {
+      if (dp[i][r]!=dp[i-1][r]) 
+      {  x[i]=1;  
+         maxv+=v[i]; 
+         r=r-w[i];
+      }
+      else
+        x[i]=0;  
+      i--;
+   }
+}
