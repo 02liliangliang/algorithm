@@ -1,0 +1,12 @@
+/* 背包问题的贪心算法*/
+ float knapSack ( float * p , float * w , float * x , float m , int n ) {
+      int i =0; float s =0;
+      while ( i < n && w [ i ]< m ){
+           m -= w [ i ]; s += p [ i ]; x [ i ]=1; i ++;
+           }
+      if ( i < n && m >0) { 
+           s+= p [ i ]* m / w [ i ]; x [ i ]= m / w [ i ]; i ++;
+           }
+      for (; i < n ; i ++) x [ i ]=0;
+      return s ;
+}
